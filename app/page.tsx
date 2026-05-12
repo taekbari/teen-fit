@@ -3,31 +3,28 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section className="mx-auto grid min-h-[calc(100vh-65px)] max-w-6xl items-center gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr]">
-      <div>
-        <p className="text-sm font-black text-[#18a985]">Teen-Fit</p>
-        <h1 className="mt-4 text-4xl font-black tracking-normal text-slate-950 sm:text-6xl">
-          데이터로 증명하는 힙한 입시 러닝메이트
+    <section className="mx-auto flex w-full max-w-[430px] flex-col gap-5 px-5 py-6">
+      <div className="rounded-[2rem] bg-slate-950 p-6 text-white shadow-sm">
+        <p className="text-sm font-black text-emerald-200">Teen-Fit</p>
+        <h1 className="mt-4 text-4xl font-black leading-tight tracking-normal">
+          내 목표학교까지 지금 몇 걸음일까?
         </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-          성적과 관심사의 변화에 따라 목표학교까지의 거리를 보여드려요.
+        <p className="mt-4 text-base leading-7 text-slate-200">
+          성적, 관심사, 학습 성향을 바탕으로 달성도와 이번 달 미션을 확인합니다.
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-6 grid gap-3">
           <Link
             href="/onboarding"
-            className="rounded-2xl bg-slate-950 px-6 py-4 text-center font-black text-white transition hover:bg-slate-800"
+            className="rounded-2xl bg-white px-5 py-4 text-center font-black text-slate-950 transition hover:bg-slate-100"
           >
             시작하기
           </Link>
           <Link
             href="/dashboard"
-            className="rounded-2xl border border-slate-200 bg-white px-6 py-4 text-center font-black text-slate-900 transition hover:bg-slate-50"
+            className="rounded-2xl border border-white/15 px-5 py-4 text-center font-black text-white transition hover:bg-white/10"
           >
             템플릿 대시보드 보기
           </Link>
-        </div>
-        <div className="mt-8 max-w-xl">
-          <Notice />
         </div>
       </div>
 
@@ -63,6 +60,8 @@ export default function Home() {
           </p>
         </div>
       </div>
+
+      <Notice />
     </section>
   );
 }

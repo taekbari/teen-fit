@@ -68,7 +68,7 @@ export function DiagnosisForm() {
 
   return (
     <form onSubmit={submit} className="grid gap-5">
-      <div className="grid gap-4 rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
         {scoreFields.map(([field, label]) => (
           <label key={field}>
             <span className="text-sm font-bold text-slate-600">{label}</span>
@@ -102,14 +102,14 @@ export function DiagnosisForm() {
         ))}
       </div>
 
-      <div className="grid gap-4 rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:grid-cols-2">
+      <div className="grid gap-4 rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
         {[
           ["strongSubject", "잘하는 과목"],
           ["weakSubject", "약한 과목"],
           ["recentInterestChange", "최근 관심 변화"],
           ["goal", "목표"],
         ].map(([field, label]) => (
-          <label key={field} className={field === "goal" ? "sm:col-span-2" : ""}>
+          <label key={field}>
             <span className="text-sm font-bold text-slate-600">{label}</span>
             <input
               value={diagnosis[field as keyof DiagnosisInput] as string}

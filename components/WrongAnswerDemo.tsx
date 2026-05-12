@@ -21,8 +21,8 @@ export function WrongAnswerDemo() {
   }
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-      <label className="flex min-h-72 cursor-pointer flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-slate-300 bg-white p-8 text-center shadow-sm transition hover:border-[#18c29c]">
+    <div className="grid gap-5">
+      <label className="flex min-h-64 cursor-pointer flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-slate-300 bg-white p-6 text-center shadow-sm transition hover:border-[#18c29c]">
         <span className="text-5xl">📷</span>
         <span className="mt-4 text-xl font-black">문제 이미지 업로드</span>
         <span className="mt-2 text-sm leading-6 text-slate-500">
@@ -31,7 +31,7 @@ export function WrongAnswerDemo() {
         <input type="file" accept="image/*" className="sr-only" onChange={onUpload} />
       </label>
 
-      <section className="rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200">
+      <section className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <p className="text-sm font-bold text-slate-500">업로드 파일</p>
         <h2 className="mt-2 text-2xl font-black">{fileName || "아직 업로드 전"}</h2>
         {loading ? (

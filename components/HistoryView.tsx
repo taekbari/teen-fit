@@ -37,9 +37,9 @@ export function HistoryView() {
         </div>
       </section>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4">
         {items.map((item) => (
-          <article key={item.id} className="rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <article key={item.id} className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-bold text-slate-400">

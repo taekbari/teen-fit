@@ -10,7 +10,7 @@ export function StatCard({
   accent: string;
 }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
         <p className="text-sm font-bold text-slate-500">{label}</p>
         <span className="text-lg font-black">{value}</span>
@@ -36,8 +36,8 @@ export function MentorBubble({
     profile.character === "냥쌤" ? "🐱" : profile.character === "토끼쌤" ? "🐰" : "🐶";
 
   return (
-    <div className="flex gap-4 rounded-3xl bg-slate-950 p-5 text-white shadow-sm">
-      <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-white text-3xl">
+    <div className="flex gap-3 rounded-3xl bg-slate-950 p-5 text-white shadow-sm">
+      <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white text-2xl">
         {face}
       </div>
       <div>
@@ -50,7 +50,7 @@ export function MentorBubble({
 
 export function QuestCard({ quest }: { quest: Quest }) {
   return (
-    <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <article className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between gap-3">
         <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
           {quest.category}
@@ -65,8 +65,8 @@ export function QuestCard({ quest }: { quest: Quest }) {
 
 export function AchievementPanel({ analysis }: { analysis: AnalysisResult }) {
   return (
-    <div className="rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div className="flex flex-col gap-4">
         <div>
           <p className="text-sm font-bold text-slate-500">목표학교 달성도</p>
           <p className="mt-2 text-5xl font-black text-slate-950">
