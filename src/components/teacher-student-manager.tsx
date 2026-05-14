@@ -321,6 +321,8 @@ export function TeacherStudentManager({ students }: { students: StudentRecord[] 
   }
 
   function startEdit(student: TeacherStudentItem) {
+    if (student.status === "ready") return;
+
     setEditingStudentId(student.id);
     setEditForm(toFormState(student));
     setIsAdding(false);
@@ -430,6 +432,9 @@ function StudentCardContent({
   onRemove: () => void;
   onReset: () => void;
 }) {
+  const canEdit = student.status !== "ready";
+  const teacherNoteSummary = formatTeacherNoteSummary(student.studentCharacteristics);
+
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr_180px] lg:items-center">
       <div>
@@ -448,7 +453,7 @@ function StudentCardContent({
         <div className="mt-4 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-600 md:grid-cols-2">
           <SummaryLine label="주변 중학교" value={student.nearbyMiddleSchools.join(", ")} />
           <SummaryLine label="계열" value={student.careerTrack} />
-          <SummaryLine label="교사 파악 특성" value={student.studentCharacteristics} />
+          <SummaryLine label="교사 파악 특성" value={teacherNoteSummary} />
         </div>
         <p className="mt-4 text-sm leading-6 text-slate-500">최근 관찰 메모: {student.latestMemo}</p>
       </div>
@@ -466,13 +471,15 @@ function StudentCardContent({
             결과지 준비 전
           </span>
         )}
-        <button
-          type="button"
-          onClick={onEdit}
-          className="rounded-2xl border border-slate-200 px-5 py-3 text-sm font-black text-slate-700"
-        >
-          수정
-        </button>
+        {canEdit ? (
+          <button
+            type="button"
+            onClick={onEdit}
+            className="rounded-2xl border border-slate-200 px-5 py-3 text-sm font-black text-slate-700"
+          >
+            수정
+          </button>
+        ) : null}
         {edited ? (
           <button
             type="button"
@@ -1891,6 +1898,17 @@ function parseTeacherNoteData(value: string): TeacherNoteRecord[] {
 
   const content = value.trim();
   return content ? [{ category: "기존 입력", content }] : [];
+}
+
+function formatTeacherNoteSummary(value: string) {
+  const records = parseTeacherNoteData(value);
+
+  if (!records.length) return "";
+
+  return records
+    .slice(0, 3)
+    .map((record) => `${record.category}: ${record.content}`)
+    .join(" / ");
 }
 
 function parseSchoolSpecialInfoData(value: string): SchoolSpecialInfoRecord[] {

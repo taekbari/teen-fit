@@ -9,7 +9,7 @@ import {
   formatDate,
   formatSchool,
 } from "@/components/report-ui";
-import { LocalStudentReport, ReportInputDataSection } from "@/components/report-input-data-section";
+import { ReportSourceDataSection, StoredStudentReport } from "@/components/report-input-data-section";
 import { generateStudentReport } from "@/lib/ai/generateReport";
 import { getMockStudent } from "@/lib/mock/students";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export default async function TeacherReportPage({ params }: PageProps) {
   const student = getMockStudent(studentId);
 
   if (!student) {
-    return <LocalStudentReport studentId={studentId} />;
+    return <StoredStudentReport studentId={studentId} />;
   }
 
   const result = await generateStudentReport(studentId);
@@ -195,7 +195,7 @@ export default async function TeacherReportPage({ params }: PageProps) {
           </Card>
         </section>
 
-        <ReportInputDataSection studentId={student.id} />
+        <ReportSourceDataSection studentId={student.id} />
 
         <section className="mt-5">
           <Card

@@ -72,7 +72,7 @@ type SchoolWebInfoRecord = {
   content: string;
 };
 
-export function ReportInputDataSection({ studentId }: { studentId: string }) {
+export function ReportSourceDataSection({ studentId }: { studentId: string }) {
   const [student, setStudent] = useState<TeacherStudentInput | null>(null);
 
   useEffect(() => {
@@ -88,8 +88,8 @@ export function ReportInputDataSection({ studentId }: { studentId: string }) {
   return (
     <section className="mt-5">
       <Card
-        title="선생님 입력 데이터"
-        description="선생님 화면에서 입력한 성향검사와 진단검사 값을 리포트에서 확인합니다."
+        title="리포트 기준 데이터"
+        description="선생님 화면에서 입력한 성향검사와 진단검사 값을 결과지 기준 데이터로 확인합니다."
       >
         <ReportInputGrid student={student} />
       </Card>
@@ -97,7 +97,7 @@ export function ReportInputDataSection({ studentId }: { studentId: string }) {
   );
 }
 
-export function LocalStudentReport({ studentId }: { studentId: string }) {
+export function StoredStudentReport({ studentId }: { studentId: string }) {
   const [student, setStudent] = useState<TeacherStudentInput | null>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -122,7 +122,7 @@ export function LocalStudentReport({ studentId }: { studentId: string }) {
             ← 학생 목록
           </Link>
           <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-8">
-            <h1 className="text-3xl font-black text-slate-950">학생 입력 데이터를 찾을 수 없습니다</h1>
+            <h1 className="text-3xl font-black text-slate-950">학생 결과지 데이터를 찾을 수 없습니다</h1>
             <p className="mt-3 leading-7 text-slate-600">
               선생님 화면에서 추가한 학생 데이터가 현재 브라우저에 저장되어 있지 않습니다.
             </p>
@@ -148,12 +148,12 @@ export function LocalStudentReport({ studentId }: { studentId: string }) {
           <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">
-                Input Report
+                Teacher Report
               </p>
-              <h1 className="mt-4 text-5xl font-black tracking-normal">{student.name} 입력 리포트</h1>
+              <h1 className="mt-4 text-5xl font-black tracking-normal">{student.name} 결과지</h1>
               <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">
                 선생님이 입력한 성향검사, 진단검사, 진로 방향, 학교 정보를 기준으로
-                상담 전 확인용 리포트를 구성했습니다.
+                상담 전 확인용 결과지를 구성했습니다.
               </p>
             </div>
             <div className="rounded-3xl bg-white/10 p-5">
@@ -166,7 +166,7 @@ export function LocalStudentReport({ studentId }: { studentId: string }) {
         </section>
 
         <section className="mt-5">
-          <Card title="입력 데이터 요약">
+          <Card title="리포트 기준 데이터">
             <ReportInputGrid student={student} />
           </Card>
         </section>
