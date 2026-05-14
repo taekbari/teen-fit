@@ -146,7 +146,11 @@ export default async function TeacherReportPage({ params }: PageProps) {
         <section className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
           <Card
             title="AI 분석 요약"
-            description="현재는 mock/template 기반 요약입니다. 실제 Claude API 호출은 비활성화되어 있습니다."
+            description={
+              meta.source === "claude"
+                ? "mock 학생 데이터를 Claude API로 분석한 결과입니다."
+                : "현재는 mock/template 기반 요약입니다. ENABLE_AI_REPORT=true 설정 시 Claude API 분석을 사용합니다."
+            }
           >
             <div className="grid gap-5">
               <SummaryList title="강점" items={report.aiSummary.strengths} />

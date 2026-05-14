@@ -1,7 +1,7 @@
 # 진로·진학 로드맵 결과지
 
 선생님이 학부모/학생 상담 전에 확인하는 진로·진학 로드맵 결과지 서비스입니다.
-현재는 실제 AI 호출 없이 mock/template 데이터만 사용합니다.
+기본 실행은 mock/template 데이터를 사용하고, 환경변수로 Claude API 분석을 켤 수 있습니다.
 
 ## 서비스 개요
 
@@ -39,8 +39,9 @@
 
 - 선생님용 결과 화면
 - mock/template 데이터 기반
-- 실제 Claude API 호출 금지
-- 나중에 Claude API 쉽게 연결 가능하도록 구조 설계
+- 학생 기본정보, 진단평가, 성향검사, 진로 방향 mock 데이터를 Claude API 프롬프트 입력으로 사용
+- `ENABLE_AI_REPORT=true`일 때 Claude API 결과를 리포트로 반환
+- Claude API 실패 시 mock/template 리포트로 fallback
 
 ## 실행
 
@@ -57,7 +58,7 @@ npm run dev
 - `/teacher/students/STU-2401/report`: 선생님용 결과 화면
 - `/teacher/students/STU-2402/report`: 선생님용 결과 화면
 - `/student`: 학생 화면 placeholder
-- `/api/ai/report`: mock report 반환 API
+- `/api/ai/report`: mock 또는 Claude 기반 report 반환 API
 
 ## 환경변수
 
@@ -78,7 +79,7 @@ API 키는 서버 전용 환경변수로만 사용해야 하므로 `NEXT_PUBLIC_
 
 ## Claude API 준비 구조
 
-실제 Claude API 호출은 현재 비활성화되어 있습니다. 다음 파일에 연결 지점만 준비되어 있습니다.
+Claude API 연결은 다음 파일에 구성되어 있습니다.
 
 - `src/lib/ai/env.ts`
 - `src/lib/ai/claudeClient.ts`
@@ -86,8 +87,9 @@ API 키는 서버 전용 환경변수로만 사용해야 하므로 `NEXT_PUBLIC_
 - `src/lib/ai/generateReport.ts`
 - `src/app/api/ai/report/route.ts`
 
-현재 API 요청은 mock report만 반환합니다.
-나중에 실제 호출을 켤 때는 `.env.local` 또는 Vercel 환경변수에서 `ANTHROPIC_API_KEY`를 설정하고 `ENABLE_AI_REPORT=true`로 변경한 뒤, `generateStudentReport` 내부 TODO 구간에서 Claude 응답 파싱/검증 로직을 연결하면 됩니다.
+기본값은 `ENABLE_AI_REPORT=false`라서 mock report만 반환합니다.
+실제 Claude API를 사용할 때는 `.env.local` 또는 Vercel 환경변수에서 `ANTHROPIC_API_KEY`를 설정하고 `ENABLE_AI_REPORT=true`로 변경합니다.
+Claude 요청에는 현재 mock 학생 데이터의 학생 기본정보, 진단평가, 성향검사, 진로 방향, 학교 인사이트, 선생님 메모가 포함됩니다.
 
 요청:
 

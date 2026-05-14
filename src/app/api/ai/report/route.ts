@@ -8,8 +8,9 @@ export async function POST(request: Request) {
       return Response.json({ error: "studentId is required." }, { status: 400 });
     }
 
-    // TODO: 실제 AI 호출이 필요한 시점에는 generateStudentReport 내부에서
-    // Claude API 연결로 교체합니다. 현재 route는 mock report만 반환합니다.
+    // generateStudentReport는 mock 학생 데이터를 기준으로 동작합니다.
+    // ENABLE_AI_REPORT=true이고 ANTHROPIC_API_KEY가 있으면 Claude API 결과를,
+    // 아니면 mock/template 결과를 반환합니다.
     const result = await generateStudentReport(body.studentId);
 
     return Response.json(result);
