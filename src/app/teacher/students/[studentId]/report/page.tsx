@@ -2,6 +2,7 @@ import {
   Card,
   AssessmentDetailPanel,
   DiagnosisTrend,
+  PersonalityAssessmentPanel,
   ScoreBars,
   SubjectGrowthChart,
   Timeline,
@@ -27,7 +28,8 @@ export default async function TeacherReportPage({ params }: PageProps) {
     notFound();
   }
 
-  const report = await generateStudentReport(studentId);
+  const result = await generateStudentReport(studentId);
+  const { report, meta } = result;
   const latestPersonality = student.personalityHistory.at(-1);
   const latestDiagnosis = student.diagnosisHistory.at(-1);
 
@@ -54,6 +56,17 @@ export default async function TeacherReportPage({ params }: PageProps) {
                 {student.latestCareerGoal} 방향을 기준으로 누적 검사와 학습 성장 데이터를
                 상담용 리포트로 정리했습니다.
               </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-slate-950">
+                  source: {meta.source}
+                </span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black text-slate-200">
+                  {meta.aiEnabled ? "AI enabled" : "AI disabled"}
+                </span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black text-slate-200">
+                  {meta.promptVersion}
+                </span>
+              </div>
             </div>
             <div className="rounded-3xl bg-white/10 p-5">
               <InfoRow label="학교/학년" value={formatSchool(student.schoolLevel, student.grade)} />
@@ -63,6 +76,17 @@ export default async function TeacherReportPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {meta.warnings.length ? (
+          <section className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-sm font-black text-amber-900">API 응답 안내</p>
+            <ul className="mt-2 grid gap-1 text-sm leading-6 text-amber-800">
+              {meta.warnings.map((warning) => (
+                <li key={warning}>• {warning}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <section className="mt-8 grid gap-5 lg:grid-cols-4">
           <Card title="성향 변화">
@@ -168,6 +192,15 @@ export default async function TeacherReportPage({ params }: PageProps) {
                 </p>
               </div>
             </div>
+          </Card>
+        </section>
+
+        <section className="mt-5">
+          <Card
+            title="성향검사 누적 변화"
+            description="업로드된 성향 엑셀의 정성 기록과 축별 수치 데이터를 함께 보여줍니다."
+          >
+            <PersonalityAssessmentPanel items={student.personalityHistory} />
           </Card>
         </section>
 

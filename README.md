@@ -66,24 +66,51 @@ npm run dev
 ```bash
 ANTHROPIC_API_KEY=
 CLAUDE_MODEL=claude-sonnet-4-5-20250929
+CLAUDE_API_VERSION=2023-06-01
+CLAUDE_API_BASE_URL=https://api.anthropic.com/v1/messages
+CLAUDE_MAX_TOKENS=4000
+CLAUDE_TIMEOUT_MS=30000
 ENABLE_AI_REPORT=false
 ```
 
 Vercel 배포 시에는 Project Settings의 Environment Variables에 같은 값을 추가합니다.
+API 키는 서버 전용 환경변수로만 사용해야 하므로 `NEXT_PUBLIC_` 접두사를 붙이지 않습니다.
 
 ## Claude API 준비 구조
 
 실제 Claude API 호출은 현재 비활성화되어 있습니다. 다음 파일에 연결 지점만 준비되어 있습니다.
 
+- `src/lib/ai/env.ts`
 - `src/lib/ai/claudeClient.ts`
 - `src/lib/ai/reportPrompt.ts`
 - `src/lib/ai/generateReport.ts`
 - `src/app/api/ai/report/route.ts`
 
 현재 API 요청은 mock report만 반환합니다.
+나중에 실제 호출을 켤 때는 `.env.local` 또는 Vercel 환경변수에서 `ANTHROPIC_API_KEY`를 설정하고 `ENABLE_AI_REPORT=true`로 변경한 뒤, `generateStudentReport` 내부 TODO 구간에서 Claude 응답 파싱/검증 로직을 연결하면 됩니다.
+
+요청:
 
 ```json
 {
   "studentId": "STU-2401"
+}
+```
+
+응답:
+
+```json
+{
+  "report": {
+    "id": "REPORT-STU-2401",
+    "studentId": "STU-2401"
+  },
+  "meta": {
+    "source": "mock",
+    "aiEnabled": false,
+    "promptVersion": "teacher-report-v1",
+    "generatedBy": "template",
+    "warnings": []
+  }
 }
 ```

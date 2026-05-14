@@ -1,5 +1,6 @@
 import type {
   DiagnosisSnapshot,
+  PersonalitySnapshot,
   StudentRecord,
   SubjectAssessmentRecord,
   SubjectScore,
@@ -187,6 +188,132 @@ export function SubjectGrowthChart({ items }: { items: SubjectScore[] }) {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+export function PersonalityAssessmentPanel({
+  items,
+}: {
+  items: PersonalitySnapshot[];
+}) {
+  const latest = items.at(-1);
+
+  if (!items.length || !latest) {
+    return (
+      <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-500">
+        성향검사 데이터가 없습니다.
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-6">
+      <section className="grid gap-3 lg:grid-cols-3">
+        {items.map((item) => (
+          <div key={`${item.year}-${item.stage ?? item.type.primary}`} className="rounded-2xl bg-slate-50 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-black text-slate-400">{item.year}</p>
+                <h3 className="mt-1 text-lg font-black text-slate-950">
+                  {item.stage ?? `${item.year}년`}
+                </h3>
+              </div>
+              <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-slate-700 ring-1 ring-slate-200">
+                {item.type.primary}
+              </span>
+            </div>
+            <dl className="mt-4 grid gap-3 text-sm">
+              <PersonalityTextRow label="관심 과목" value={item.qualitative?.mainInterestSubjects} />
+              <PersonalityTextRow label="학습 태도" value={item.qualitative?.learningAttitude ?? item.note} />
+              <PersonalityTextRow label="핵심 강점" value={item.qualitative?.coreStrength} />
+              <PersonalityTextRow label="지도 핵심" value={item.qualitative?.coachingFocus} />
+            </dl>
+          </div>
+        ))}
+      </section>
+
+      <section className="rounded-2xl bg-slate-950 p-5 text-white">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-sm font-black text-emerald-300">Latest personality scale</p>
+            <h3 className="mt-1 text-2xl font-black">
+              {latest.stage ?? `${latest.year}년`} 수치 프로필
+            </h3>
+          </div>
+          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">
+            {latest.type.primary} / {latest.type.secondary}
+          </span>
+        </div>
+
+        <div className="mt-5 grid gap-3 lg:grid-cols-2">
+          {(latest.axisScores ?? []).map((axis) => (
+            <PersonalityAxisBar key={axis.category} axis={axis} />
+          ))}
+        </div>
+
+        {latest.preferences?.length ? (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {latest.preferences.map((preference) => (
+              <span
+                key={preference.category}
+                className="rounded-full bg-white/10 px-3 py-2 text-xs font-black text-slate-100"
+              >
+                {preference.category}: {preference.value}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+function PersonalityTextRow({ label, value }: { label: string; value?: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-black text-slate-400">{label}</dt>
+      <dd className="mt-1 leading-6 text-slate-700">{value || "데이터 없음"}</dd>
+    </div>
+  );
+}
+
+function PersonalityAxisBar({
+  axis,
+}: {
+  axis: NonNullable<PersonalitySnapshot["axisScores"]>[number];
+}) {
+  const total = axis.leftScore + axis.rightScore || 1;
+  const leftPercent = Math.round((axis.leftScore / total) * 100);
+  const rightPercent = 100 - leftPercent;
+
+  return (
+    <div className="rounded-2xl bg-white/10 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="font-black text-white">{axis.category}</p>
+          <p className="mt-1 text-xs font-bold text-slate-400">{axis.detail}</p>
+        </div>
+        <span className="rounded-full bg-emerald-300 px-3 py-1 text-xs font-black text-slate-950">
+          {axis.dominantLabel}
+        </span>
+      </div>
+
+      <div className="mt-4 overflow-hidden rounded-full bg-white/10">
+        <div className="flex h-3">
+          <div className="bg-emerald-300" style={{ width: `${leftPercent}%` }} />
+          <div className="bg-sky-300" style={{ width: `${rightPercent}%` }} />
+        </div>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between text-xs font-black text-slate-300">
+        <span>
+          {axis.leftLabel} {axis.leftScore}
+        </span>
+        <span>
+          {axis.rightLabel} {axis.rightScore}
+        </span>
       </div>
     </div>
   );

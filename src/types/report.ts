@@ -49,3 +49,14 @@ export type StudentReport = {
   };
   counselingTalk: string[];
 };
+
+export type ReportApiResult = {
+  report: StudentReport;
+  meta: {
+    source: "mock" | "claude";
+    aiEnabled: boolean;
+    promptVersion: string;
+    generatedBy: "template" | "claude-code" | "claude-messages";
+    warnings: string[];
+  };
+};

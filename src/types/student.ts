@@ -17,11 +17,38 @@ export type TraitScores = {
   emotionalStability: number;
 };
 
+export type PersonalityQualitativeProfile = {
+  mainInterestSubjects: string;
+  learningAttitude: string;
+  coreStrength: string;
+  coachingFocus: string;
+};
+
+export type PersonalityAxisScore = {
+  category: string;
+  detail: string;
+  leftLabel: string;
+  rightLabel: string;
+  leftScore: number;
+  rightScore: number;
+  dominantLabel: string;
+};
+
+export type PersonalityPreference = {
+  category: string;
+  detail: string;
+  value: string;
+};
+
 export type PersonalitySnapshot = {
   year: number;
+  stage?: string;
   type: PersonalityType;
   traits: TraitScores;
   note: string;
+  qualitative?: PersonalityQualitativeProfile;
+  axisScores?: PersonalityAxisScore[];
+  preferences?: PersonalityPreference[];
 };
 
 export type DiagnosisSnapshot = {

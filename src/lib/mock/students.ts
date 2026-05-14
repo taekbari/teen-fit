@@ -2,6 +2,7 @@ import {
   createSubjectGrowthFromAssessments,
   excelAssessmentMock,
 } from "@/lib/mock/assessmentData";
+import { excelPersonalityHistory } from "@/lib/mock/personalityData";
 import type { StudentRecord } from "@/types/student";
 
 const excelSubjectGrowth = createSubjectGrowthFromAssessments(excelAssessmentMock);
@@ -19,50 +20,7 @@ export const mockStudents: StudentRecord[] = [
     interestedSchools: ["과학중점 고등학교", "SW·AI 선도학교"],
     lastAnalyzedAt: "2026-05-14T09:30:00+09:00",
     status: "ready",
-    personalityHistory: [
-      {
-        year: 2024,
-        type: { primary: "탐구형", secondary: "독립형" },
-        traits: {
-          analyticalThinking: 78,
-          creativity: 68,
-          leadership: 42,
-          collaboration: 48,
-          execution: 61,
-          concentration: 76,
-          emotionalStability: 62,
-        },
-        note: "흥미 있는 주제는 오래 파고들지만 산출물 마무리가 약했습니다.",
-      },
-      {
-        year: 2025,
-        type: { primary: "탐구형", secondary: "실행형" },
-        traits: {
-          analyticalThinking: 86,
-          creativity: 73,
-          leadership: 55,
-          collaboration: 58,
-          execution: 76,
-          concentration: 88,
-          emotionalStability: 69,
-        },
-        note: "탐구 주제를 프로젝트로 정리하는 힘이 커졌습니다.",
-      },
-      {
-        year: 2026,
-        type: { primary: "탐구형", secondary: "실행형" },
-        traits: {
-          analyticalThinking: 91,
-          creativity: 78,
-          leadership: 61,
-          collaboration: 63,
-          execution: 82,
-          concentration: 92,
-          emotionalStability: 71,
-        },
-        note: "AI·로봇 분야 관심이 학습 행동으로 연결되고 있습니다.",
-      },
-    ],
+    personalityHistory: excelPersonalityHistory,
     diagnosisHistory: [
       {
         period: "2025 상반기",

@@ -1,5 +1,5 @@
 import { mockStudents } from "@/lib/mock/students";
-import type { StudentReport } from "@/types/report";
+import type { ReportApiResult, StudentReport } from "@/types/report";
 
 const now = "2026-05-14T10:30:00+09:00";
 
@@ -11,7 +11,7 @@ export const mockReports: StudentReport[] = [
     student: pickStudent(mockStudents[0]),
     cumulativeSummary: {
       personalityChange:
-        "탐구형 성향은 유지되면서 실행형 보조 성향이 강화되었습니다. 관심 주제를 실제 프로젝트로 옮기는 힘이 커졌습니다.",
+        "초6에는 꼼꼼한 분석형과 정답 찾기 선호가 강했고, 중1에는 언어적 호기심이 확장되었습니다. 중2에는 수학·과학 중심의 논리적 탐구와 활동 참여가 뚜렷해졌습니다.",
       diagnosisChange:
         "진로 명료도가 48에서 82로 상승해, 막연한 기술 관심이 AI 로봇 엔지니어라는 구체 목표로 정리되었습니다.",
       subjectGrowth:
@@ -23,16 +23,16 @@ export const mockReports: StudentReport[] = [
     },
     aiSummary: {
       strengths: [
-        "분석적 사고와 집중력이 높아 복잡한 원리를 파고드는 학습에 강합니다.",
+        "인지 방식에서 분석형 수치가 24/25로 높아 세부 정보를 기억하고 원리를 파고드는 학습에 강합니다.",
+        "동기와 주도 방식이 내재형·자율형으로 이동해 스스로 정한 주제에서 몰입 가능성이 높습니다.",
         "수학 성장세가 뚜렷해 AI·로봇 분야에 필요한 기초 역량을 만들고 있습니다.",
-        "진로 목표가 구체화되면서 활동 선택 기준이 생겼습니다.",
       ],
       improvements: [
-        "팀 프로젝트에서는 역할과 산출물을 명확히 정해야 협업 몰입이 올라갑니다.",
-        "탐구 내용을 보고서나 발표 결과물로 마무리하는 루틴이 더 필요합니다.",
+        "국어 선호가 낮아진 흐름이 있어 논리적 글쓰기와 보고서 정리 루틴을 함께 잡아야 합니다.",
+        "활동 참여가 강해진 만큼 탐구 후 숙고와 글쓰기까지 연결하는 지도가 필요합니다.",
       ],
       careerInterpretation:
-        "latestCareerGoal인 AI 로봇 엔지니어는 학생의 탐구형 성향, 수학 성장세, 기술 체험 경험과 자연스럽게 연결됩니다.",
+        "latestCareerGoal인 AI 로봇 엔지니어는 학생의 분석형 인지, 수학·과학 관심, 자율적 탐구 성향과 자연스럽게 연결됩니다.",
       teacherComment:
         "민준이는 목표가 정해질수록 학습 몰입이 강해지는 학생입니다. 상담에서는 AI 로봇이라는 관심을 수학, 과학, 프로젝트 기록으로 연결해 주는 것이 핵심입니다.",
     },
@@ -206,6 +206,26 @@ export const mockReports: StudentReport[] = [
 
 export function getMockReport(studentId: string) {
   return mockReports.find((report) => report.studentId === studentId);
+}
+
+export function getMockReportApiResult(studentId: string): ReportApiResult | undefined {
+  const report = getMockReport(studentId);
+
+  if (!report) return undefined;
+
+  return {
+    report,
+    meta: {
+      source: "mock",
+      aiEnabled: false,
+      promptVersion: "teacher-report-v1",
+      generatedBy: "template",
+      warnings: [
+        "현재 결과는 Claude API 호출 없이 mock/template 데이터로 생성되었습니다.",
+        "입시 정보와 모집요강은 실제 상담 전 최신 기준 확인이 필요합니다.",
+      ],
+    },
+  };
 }
 
 function pickStudent(student: (typeof mockStudents)[number]): StudentReport["student"] {
