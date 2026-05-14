@@ -100,6 +100,98 @@ export const mockStudents: StudentRecord[] = [
       },
     ],
   },
+  {
+    id: "STU-2403",
+    name: "이수아",
+    schoolLevel: "elementary",
+    grade: 6,
+    school: "초6 / 중학교 진학 예정",
+    latestCareerGoal: "언론인/기자",
+    interestedJobs: ["기자", "방송 기자", "콘텐츠 에디터"],
+    interestedMajors: ["미디어커뮤니케이션", "언론정보", "국어국문"],
+    interestedSchools: ["한산중학교", "둔촌중학교", "성내중학교"],
+    lastAnalyzedAt: "2026-05-14T09:30:00+09:00",
+    status: "ready",
+    personalityHistory: excelPersonalityHistory,
+    diagnosisHistory: [
+      {
+        period: "2025 상반기",
+        scores: {
+          aptitude: 72,
+          learningReadiness: 64,
+          careerClarity: 48,
+          selfManagement: 58,
+        },
+        summary: "관심 분야는 넓었지만 진로 선택 기준이 아직 흐렸습니다.",
+      },
+      {
+        period: "2025 하반기",
+        scores: {
+          aptitude: 80,
+          learningReadiness: 71,
+          careerClarity: 66,
+          selfManagement: 70,
+        },
+        summary: "언론과 콘텐츠 관심이 학교 활동과 연결되기 시작했습니다.",
+      },
+      {
+        period: "2026 상반기",
+        scores: {
+          aptitude: 87,
+          learningReadiness: 78,
+          careerClarity: 82,
+          selfManagement: 74,
+        },
+        summary: "언론인/기자 목표를 기준으로 중학교 적응 전략 설계가 가능해졌습니다.",
+      },
+    ],
+    subjectGrowth: excelSubjectGrowth,
+    subjectAssessments: excelAssessmentMock,
+    careerTimeline: [
+      {
+        date: "2025-03-12",
+        goal: "작가",
+        reason: "읽기와 글쓰기 활동에서 높은 몰입을 보였습니다.",
+      },
+      {
+        date: "2025-11-02",
+        goal: "콘텐츠 에디터",
+        reason: "자료를 읽고 핵심을 정리하는 활동에 흥미를 보였습니다.",
+      },
+      {
+        date: "2026-05-14",
+        goal: "언론인/기자",
+        reason: "사회 이슈를 분석하고 전달하는 진로로 구체화되었습니다.",
+      },
+    ],
+    schoolAssessmentInsights: [
+      {
+        subject: "국어",
+        pattern: "외부 지문과 비판적 읽기 문항의 비중이 높을 수 있습니다.",
+        recommendation: "사설 요약과 근거 찾기 루틴을 유지합니다.",
+      },
+      {
+        subject: "수학",
+        pattern: "고난도 문항에서는 조건 정리와 풀이 과정 서술이 중요합니다.",
+        recommendation: "조건-개념-풀이-검토 4단계 노트를 사용합니다.",
+      },
+    ],
+    academicSchedule: [
+      { date: "2026-06-20", title: "중학교 배정 상담", type: "counseling" },
+      { date: "2026-07-01", title: "예비 중1 학습 점검", type: "exam" },
+      { date: "2026-07-15", title: "동아리 탐색 활동", type: "activity" },
+    ],
+    teacherObservations: [
+      {
+        date: "2026-03-18",
+        memo: "국어 외부 지문을 읽고 핵심 근거를 찾는 속도와 정확도가 좋습니다.",
+      },
+      {
+        date: "2026-04-22",
+        memo: "수학 고난도 문항에서는 풀이 시작 전 조건 정리 시간이 필요합니다.",
+      },
+    ],
+  },
 ];
 
 export function getMockStudent(studentId: string) {
