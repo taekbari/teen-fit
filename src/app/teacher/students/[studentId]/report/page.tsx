@@ -51,7 +51,7 @@ export default async function TeacherReportPage({ params }: PageProps) {
   }
 
   if (report.reportType === "middle_3") {
-    return <Middle3ReportView report={report} />;
+    return <Middle3ReportView report={report} student={mockStudent} />;
   }
 
   return <PreMiddleReportView report={report} />;
@@ -123,7 +123,7 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
   );
 }
 
-function Middle3ReportView({ report }: { report: Middle3Report }) {
+function Middle3ReportView({ report, student }: { report: Middle3Report; student?: StudentRecord }) {
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-6 md:px-8 md:py-8">
       <div className="mx-auto max-w-7xl">
@@ -142,6 +142,33 @@ function Middle3ReportView({ report }: { report: Middle3Report }) {
         <section className="grid gap-5 lg:grid-cols-3">
           {report.subjects.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
         </section>
+
+        {student ? (
+          <>
+            <SectionHeader
+              eyebrow="Assessment Data"
+              title="성향검사·진단평가 근거 데이터"
+              description="과목별 상태 분석과 중복되는 진단 변화 그래프는 제외하고, 상담 근거가 되는 성향 변화와 평가 상세를 확인합니다."
+            />
+            <section>
+              <Card
+                title="성향검사 누적 변화"
+                description="성향 변화와 정성 기록을 함께 확인해 고교 선택과 학습 방식에 반영합니다."
+              >
+                <PersonalityAssessmentPanel items={student.personalityHistory} />
+              </Card>
+            </section>
+
+            <section className="mt-5">
+              <Card
+                title="진단평가 상세"
+                description="과목별 영역 성취도와 난이도별 성취도를 확인해 고교 준비 전략에 반영합니다."
+              >
+                <AssessmentDetailPanel assessments={student.subjectAssessments} />
+              </Card>
+            </section>
+          </>
+        ) : null}
 
         <SectionHeader eyebrow="Roadmap" title="진학 로드맵 타임라인" description="중3 1학기부터 대학 진학 방향까지 단계별 실행 흐름입니다." />
         <RoadmapTimeline steps={report.roadmap} />
