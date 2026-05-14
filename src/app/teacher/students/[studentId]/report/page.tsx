@@ -9,10 +9,10 @@ import {
   formatDate,
   formatSchool,
 } from "@/components/report-ui";
+import { LocalStudentReport, ReportInputDataSection } from "@/components/report-input-data-section";
 import { generateStudentReport } from "@/lib/ai/generateReport";
 import { getMockStudent } from "@/lib/mock/students";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{
@@ -25,7 +25,7 @@ export default async function TeacherReportPage({ params }: PageProps) {
   const student = getMockStudent(studentId);
 
   if (!student) {
-    notFound();
+    return <LocalStudentReport studentId={studentId} />;
   }
 
   const result = await generateStudentReport(studentId);
@@ -194,6 +194,8 @@ export default async function TeacherReportPage({ params }: PageProps) {
             </div>
           </Card>
         </section>
+
+        <ReportInputDataSection studentId={student.id} />
 
         <section className="mt-5">
           <Card

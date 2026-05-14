@@ -584,7 +584,13 @@ export function Timeline({
 }
 
 export function formatSchool(level: StudentRecord["schoolLevel"], grade: number) {
-  return `${level === "middle" ? "중학교" : "고등학교"} ${grade}학년`;
+  const label = {
+    elementary: "초등학교",
+    middle: "중학교",
+    high: "고등학교",
+  }[level];
+
+  return `${label} ${grade}학년`;
 }
 
 export function formatDate(date: string) {

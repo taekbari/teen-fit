@@ -1,4 +1,4 @@
-export type SchoolLevel = "middle" | "high";
+export type SchoolLevel = "elementary" | "middle" | "high";
 
 export type StudentSummaryStatus = "ready" | "needs_update" | "in_progress";
 
