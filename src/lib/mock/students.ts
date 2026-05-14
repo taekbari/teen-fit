@@ -192,6 +192,98 @@ export const mockStudents: StudentRecord[] = [
       },
     ],
   },
+  {
+    id: "STU-2404",
+    name: "김도윤",
+    schoolLevel: "middle",
+    grade: 3,
+    school: "한빛중학교",
+    latestCareerGoal: "IT 전문가 / 반도체·AI 분야",
+    interestedJobs: ["IT 전문가", "AI 개발자", "반도체 엔지니어"],
+    interestedMajors: ["반도체공학과", "전자공학과", "컴퓨터공학과", "인공지능학과"],
+    interestedSchools: ["과학중점학교", "자율형 공립고 2.0", "SW 특화 프로그램 운영교"],
+    lastAnalyzedAt: "2026-05-15T10:00:00+09:00",
+    status: "ready",
+    personalityHistory: excelPersonalityHistory,
+    diagnosisHistory: [
+      {
+        period: "2025 상반기",
+        scores: {
+          aptitude: 72,
+          learningReadiness: 64,
+          careerClarity: 48,
+          selfManagement: 58,
+        },
+        summary: "분석적이고 꼼꼼한 성향이 강했으며 진로 방향은 넓게 열려 있었습니다.",
+      },
+      {
+        period: "2025 하반기",
+        scores: {
+          aptitude: 80,
+          learningReadiness: 71,
+          careerClarity: 66,
+          selfManagement: 70,
+        },
+        summary: "IT 탐구 활동과 팀 프로젝트에 대한 관심이 커졌습니다.",
+      },
+      {
+        period: "2026 상반기",
+        scores: {
+          aptitude: 87,
+          learningReadiness: 78,
+          careerClarity: 82,
+          selfManagement: 74,
+        },
+        summary: "IT 전문가와 반도체/AI 분야를 기준으로 고교 진학 전략 설계가 가능해졌습니다.",
+      },
+    ],
+    subjectGrowth: excelSubjectGrowth,
+    subjectAssessments: excelAssessmentMock,
+    careerTimeline: [
+      {
+        date: "2025-03-12",
+        goal: "게임 개발자",
+        reason: "코딩과 문제 해결 활동에서 흥미를 보였습니다.",
+      },
+      {
+        date: "2025-11-02",
+        goal: "IT 전문가",
+        reason: "팀 프로젝트와 알고리즘 문제 풀이 경험이 늘었습니다.",
+      },
+      {
+        date: "2026-05-15",
+        goal: "반도체/AI 분야",
+        reason: "수학·과학 강점과 IT 탐구 활동이 진로 관심으로 연결되었습니다.",
+      },
+    ],
+    schoolAssessmentInsights: [
+      {
+        subject: "국어",
+        pattern: "국어 성취도 하락으로 기술 독해와 논리적 글쓰기 보완이 필요합니다.",
+        recommendation: "IT 기사와 탐구 보고서를 활용해 주장-근거-자료 구조를 훈련합니다.",
+      },
+      {
+        subject: "수학",
+        pattern: "수학/과학 내신 최상위 유지가 과학중점학교 준비의 핵심입니다.",
+        recommendation: "기하/함수와 물리 개념을 코딩 프로젝트로 연결합니다.",
+      },
+    ],
+    academicSchedule: [
+      { date: "2026-06-20", title: "고교 진학 상담", type: "counseling" },
+      { date: "2026-07-01", title: "중3 1학기 기말 점검", type: "exam" },
+      { date: "2026-07-15", title: "IT 프로젝트 포트폴리오 점검", type: "activity" },
+    ],
+    teacherObservations: [
+      {
+        date: "2026-03-18",
+        memo: "수학 기하/함수 영역에서 개념 연결력이 좋고 상승세가 뚜렷합니다.",
+      },
+      {
+        date: "2026-04-22",
+        memo: "국어는 기술 독해와 논리적 문서 작성 루틴을 다시 세울 필요가 있습니다.",
+      },
+    ],
+  },
 ];
 
 export function getMockStudent(studentId: string) {
