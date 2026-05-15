@@ -48,6 +48,7 @@ type FormState = {
 
 const localStorageKey = "teen-fit.teacher.localStudents";
 const editsStorageKey = "teen-fit.teacher.studentEdits";
+const hiddenMockStudentIds = new Set(["STU-2401"]);
 
 const initialForm: FormState = {
   name: "",
@@ -295,7 +296,9 @@ export function TeacherStudentManager({ students }: { students: StudentRecord[] 
 
   const items = useMemo(
     () => [
-      ...students.map((student) => studentEdits[student.id] ?? toTeacherStudentItem(student)),
+      ...students
+        .filter((student) => !hiddenMockStudentIds.has(student.id))
+        .map((student) => studentEdits[student.id] ?? toTeacherStudentItem(student)),
       ...localStudents,
     ],
     [students, studentEdits, localStudents],
@@ -434,6 +437,11 @@ function StudentCardContent({
 }) {
   const canEdit = student.status !== "ready";
   const teacherNoteSummary = formatTeacherNoteSummary(student.studentCharacteristics);
+  const summaryItems = [
+    { label: "주변 중학교", value: student.nearbyMiddleSchools.join(", ") },
+    { label: "계열", value: student.careerTrack },
+    { label: "교사 파악 특성", value: teacherNoteSummary },
+  ].filter((item) => item.value.trim());
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr_180px] lg:items-center">
@@ -450,11 +458,13 @@ function StudentCardContent({
           <p>희망 진로: {student.latestCareerGoal}</p>
           <p>최근 분석: {formatDate(student.lastAnalyzedAt)}</p>
         </div>
-        <div className="mt-4 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-600 md:grid-cols-2">
-          <SummaryLine label="주변 중학교" value={student.nearbyMiddleSchools.join(", ")} />
-          <SummaryLine label="계열" value={student.careerTrack} />
-          <SummaryLine label="교사 파악 특성" value={teacherNoteSummary} />
-        </div>
+        {summaryItems.length ? (
+          <div className="mt-4 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-600 md:grid-cols-2">
+            {summaryItems.map((item) => (
+              <SummaryLine key={item.label} label={item.label} value={item.value} />
+            ))}
+          </div>
+        ) : null}
         <p className="mt-4 text-sm leading-6 text-slate-500">최근 관찰 메모: {student.latestMemo}</p>
       </div>
 
@@ -1741,10 +1751,12 @@ function TextAreaField({
 }
 
 function SummaryLine({ label, value }: { label: string; value: string }) {
+  if (!value.trim()) return null;
+
   return (
     <p>
       <span className="font-black text-slate-500">{label}: </span>
-      {value || "미입력"}
+      {value}
     </p>
   );
 }
@@ -1864,7 +1876,8 @@ function toTeacherStudentItem(student: StudentRecord): TeacherStudentItem {
     lastAnalyzedAt: student.lastAnalyzedAt,
     status: student.status,
     latestMemo: student.teacherObservations.at(-1)?.memo ?? "기록 없음",
-    hasReport: true,
+    // Legacy 김민준 결과 화면은 현재 노출하지 않습니다.
+    hasReport: student.id !== "STU-2401",
     source: "mock",
   };
 }

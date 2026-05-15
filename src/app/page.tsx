@@ -33,18 +33,18 @@ export default function Home() {
           학생의 성향검사, 진단검사, 진로 변화 데이터를 누적 관리하고, AI 분석과
           선생님 상담을 결합해 학부모/학생에게 구체적인 진로·진학 로드맵을 제공합니다.
         </p>
-        <div className="mt-8 flex gap-3">
-          <Link
-            href="/teacher"
-            className="rounded-2xl bg-white px-5 py-3 font-black text-slate-950"
-          >
-            선생님 화면 보기
-          </Link>
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/student"
+            className="rounded-2xl bg-white px-5 py-3 font-black text-slate-950"
+          >
+            학생 화면 보기
+          </Link>
+          <Link
+            href="/teacher"
             className="rounded-2xl border border-white/20 px-5 py-3 font-black text-white"
           >
-            학생 화면
+            선생님 화면 보기
           </Link>
         </div>
         </div>

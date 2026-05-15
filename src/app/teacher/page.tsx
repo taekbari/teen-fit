@@ -1,12 +1,11 @@
 import { TeacherStudentManager } from "@/components/teacher-student-manager";
 import { mockStudents } from "@/lib/mock/students";
-import Link from "next/link";
 
 export default function TeacherHomePage() {
   return (
     <main className="min-h-screen px-8 py-8">
       <div className="mx-auto max-w-7xl">
-        <header className="flex items-end justify-between gap-6">
+        <header>
           <div>
             <p className="text-sm font-black uppercase tracking-[0.16em] text-slate-500">
               Teacher Dashboard
@@ -19,12 +18,6 @@ export default function TeacherHomePage() {
               확인합니다. 현재는 mock/template 데이터 기반입니다.
             </p>
           </div>
-          <Link
-            href="/student"
-            className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 shadow-sm"
-          >
-            학생 화면 placeholder
-          </Link>
         </header>
 
         <TeacherStudentManager students={mockStudents} />
