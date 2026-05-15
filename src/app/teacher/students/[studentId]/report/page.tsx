@@ -96,6 +96,10 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
           <InfoListCard title="맞춤 활동 적응 전략" items={report.lifeStrategies} tone="emerald" />
         </section>
 
+        <SectionHeader
+          eyebrow="Assessment Summary"
+          title="진단평가, 성향검사 결과 종합"
+        />
         <AchievementInsightPanel report={report.achievementReport} />
 
         <SectionHeader
@@ -155,7 +159,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
           <>
             <SectionHeader
               eyebrow="Assessment Data"
-              title="성향검사 근거 데이터"
+              title="성향검사 결과 종합"
             />
             <section>
               <Card
@@ -166,8 +170,12 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
               </Card>
             </section>
 
-            <section className="mt-5">
-              <Card title="과목별 내신점수 상세">
+            <SectionHeader
+              eyebrow="School Record"
+              title="과목별 내신점수 상세"
+            />
+            <section>
+              <Card>
                 <SchoolGradeDetailPanel data={student.schoolGrades} />
               </Card>
             </section>
@@ -234,12 +242,11 @@ function AchievementInsightPanel({
   report: PreMiddleReport["achievementReport"];
 }) {
   return (
-    <section className="mt-5 grid gap-5">
+    <section className="grid gap-5">
       <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-black text-slate-500">초6 학습 성취도</p>
-            <h3 className="mt-1 text-2xl font-black text-slate-950">진단평가, 성향검사 결과 종합</h3>
           </div>
           <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700 ring-1 ring-blue-100">
             {report.summaryBadge}

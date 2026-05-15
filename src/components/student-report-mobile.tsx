@@ -58,7 +58,7 @@ export function StudentReportListMobile({ reports }: { reports: StudentGuidanceR
     <MobileShell>
       <div className="px-5 pb-5 pt-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-black text-emerald-600">Teen Fit</p>
+          <p className="text-sm font-black text-emerald-600">Future Fit</p>
           <Link href="/" className="rounded-full bg-white px-3 py-1 text-xs font-black text-slate-600 shadow-sm ring-1 ring-slate-200">
             메인으로
           </Link>
@@ -107,7 +107,7 @@ export function StudentLandingMobile() {
     <MobileShell>
       <div className="px-5 pb-8 pt-6">
         <section className="rounded-[2rem] bg-slate-950 p-6 text-white">
-          <p className="text-sm font-black text-emerald-300">Teen Fit</p>
+          <p className="text-sm font-black text-emerald-300">Future Fit</p>
           <h1 className="mt-3 text-3xl font-black leading-tight">학생 화면</h1>
           <p className="mt-4 text-sm font-bold leading-6 text-slate-300">
             내 결과지와 이번 달 할 일을 확인하려면 먼저 학생을 선택하세요.
@@ -313,12 +313,17 @@ function SubjectGuideSection({ report }: { report: StudentGuidanceReport }) {
       <div className="mt-4 grid gap-4">
         {cards.map((card) => (
           <div key={card.subject} className={`rounded-[1.8rem] border p-5 shadow-[0_10px_25px_-5px_rgba(59,130,246,0.08)] ${card.className}`}>
-            <div className="mb-2 flex items-center justify-between gap-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className={`rounded-lg bg-white px-2 py-1 text-xs font-black shadow-sm ${card.labelClassName}`}>
-                  {card.subject}
-                </span>
-                <span className="text-xs font-black uppercase opacity-70">{card.status}</span>
+            <div className="mb-2 flex items-start justify-between gap-3">
+              <div>
+                <h3 className={`flex flex-wrap items-center gap-1.5 text-lg font-black leading-tight ${card.labelClassName}`}>
+                  <span>{card.subject}</span>
+                  {card.subjectLabel ? (
+                    <span className="text-sm font-black">{card.subjectLabel}</span>
+                  ) : null}
+                  <span className="rounded-full bg-white/80 px-2 py-1 text-[10px] font-black text-slate-500 shadow-sm">
+                    {card.status}
+                  </span>
+                </h3>
               </div>
               {card.score ? <span className="text-2xl font-black text-slate-800">{card.score}</span> : null}
             </div>
@@ -415,7 +420,7 @@ function RecommendationSnapshot({ report }: { report: StudentGuidanceReport }) {
     <section className="rounded-[2rem] border-2 border-dashed border-blue-100 bg-white p-6 shadow-[0_10px_25px_-5px_rgba(59,130,246,0.08)]">
       <h2 className="mb-4 flex items-center gap-2 text-sm font-black text-blue-600">
         <Icon name="school" className="h-4 w-4" />
-        추천 고등학교
+        추천 진로
       </h2>
       <div className="grid gap-4">
         <div className="flex items-start gap-3 rounded-2xl bg-blue-50/60 p-3">
@@ -470,11 +475,14 @@ function getSubjectGuideCards(report: StudentGuidanceReport) {
     return report.subjects.map((subject) => {
       const latestScore = subject.chartValues[subject.chartValues.length - 1] ?? subject.currentScore;
       const previousScore = subject.chartValues[subject.chartValues.length - 2] ?? subject.previousScore;
-      const previousLabel = subject.chartLabels[subject.chartLabels.length - 2] ?? "직전 학기";
+      const previousLabel = formatStudentSubjectGuidePeriod(
+        subject.chartLabels[subject.chartLabels.length - 2] ?? "직전 학기",
+      );
       const diff = latestScore - previousScore;
       const tone = subject.subject === "수학" ? "emerald" : subject.subject === "영어" ? "violet" : "orange";
       return {
-        subject: `${subject.subject}${subject.subject === "수학" ? " (Math)" : subject.subject === "영어" ? " (English)" : " (Korean)"}`,
+        subject: subject.subject,
+        subjectLabel: subject.subject === "수학" ? "Math" : subject.subject === "영어" ? "English" : "Korean",
         status: subject.status,
         score: `${latestScore}점`,
         trend: `${previousLabel} 대비 ${Math.abs(diff)}점 ${diff >= 0 ? "상승" : "하락"}`,
@@ -488,6 +496,7 @@ function getSubjectGuideCards(report: StudentGuidanceReport) {
 
   return report.learningStrategies.slice(0, 3).map((strategy) => ({
     subject: strategy.subject,
+    subjectLabel: "",
     status: `우선 ${strategy.priority}`,
     score: "",
     trend: strategy.goal,
@@ -496,6 +505,10 @@ function getSubjectGuideCards(report: StudentGuidanceReport) {
     labelClassName: subjectToneClass[strategy.tone === "sky" ? "blue" : strategy.tone].text,
     trendClassName: subjectToneClass[strategy.tone === "sky" ? "blue" : strategy.tone].text,
   }));
+}
+
+function formatStudentSubjectGuidePeriod(period: string) {
+  return period.replace(/^중3/, "중2");
 }
 
 const subjectToneClass = {
