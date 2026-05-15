@@ -1,11 +1,20 @@
 import { TeacherStudentManager } from "@/components/teacher-student-manager";
 import { mockStudents } from "@/lib/mock/students";
+import Link from "next/link";
 
 export default function TeacherHomePage() {
   return (
     <main className="min-h-screen px-8 py-8">
       <div className="mx-auto max-w-7xl">
         <header>
+          <div className="mb-6">
+            <Link
+              href="/"
+              className="inline-flex rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm"
+            >
+              ← 메인으로
+            </Link>
+          </div>
           <div>
             <p className="text-sm font-black uppercase tracking-[0.16em] text-slate-500">
               Teacher Dashboard
