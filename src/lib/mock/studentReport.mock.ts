@@ -21,7 +21,6 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         assessmentTrend: "외부 지문과 서술형에서 문맥 이해, 근거 찾기, 자료 해석이 중요합니다.",
         studentStrategy: "높은 비판적 읽기 능력을 성적으로 연결합니다.",
         recommendationPoint: "문해력 강점 활용",
-        counselingMemoPlaceholder: "한산중 상담 메모를 입력하세요.",
       },
       {
         id: "dunchon",
@@ -31,7 +30,6 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         assessmentTrend: "수학 상 난이도 문항에서 조건 해석과 풀이 과정 서술이 점수 차이를 만듭니다.",
         studentStrategy: "수학 상 난이도 성취도 85% 이상을 목표로 연습합니다.",
         recommendationPoint: "수학 심화 대비 필요",
-        counselingMemoPlaceholder: "둔촌중 상담 메모를 입력하세요.",
       },
       {
         id: "seongnae",
@@ -41,7 +39,6 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         assessmentTrend: "보고서, 발표, 활동 참여 기록이 수행평가와 진로 포트폴리오에 연결됩니다.",
         studentStrategy: "언론인 진로와 연계한 보고서 작성 및 발표 기회를 활용합니다.",
         recommendationPoint: "진로 포트폴리오 강화",
-        counselingMemoPlaceholder: "성내중 상담 메모를 입력하세요.",
       },
     ],
     adaptationGuide: [

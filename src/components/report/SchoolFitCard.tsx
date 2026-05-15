@@ -16,14 +16,6 @@ export function SchoolFitCard({ school }: { school: SchoolFit }) {
       <InfoBlock label="주요 특징" value={school.mainFeature} />
       <InfoBlock label="출제/평가 경향" value={school.assessmentTrend} />
       <InfoBlock label="수아 학생을 위한 전략" value={school.studentStrategy} strong />
-
-      <label className="grid gap-2">
-        <span className="text-xs font-black text-slate-500">상담 메모</span>
-        <textarea
-          className="min-h-24 resize-y rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold leading-6 outline-none focus:border-slate-950"
-          placeholder={school.counselingMemoPlaceholder}
-        />
-      </label>
     </article>
   );
 }
