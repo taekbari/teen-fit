@@ -116,6 +116,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
     },
     careerKeywords: ["IT 전문가", "반도체", "AI", "알고리즘", "팀 프로젝트"],
     growthStatus: "수학 상승세를 바탕으로 IT 분야 기초 체력이 완성 단계에 들어섰습니다.",
+    growthSignals: ["수학 상승세", "IT 기초 체력 완성", "이공계 탐구 확장", "프로젝트형 학습 적합"],
     riskFactors: ["국어 89→78 하락", "논리적 글쓰기 회복 필요", "기술 독해 루틴 필요"],
     aiComment:
       "도윤이는 수학적 사고와 IT 탐구 성향이 함께 커지고 있어 과학중점학교와 SW 특화 환경을 우선 검토할 수 있습니다. 중3 시기에는 수학/과학 내신 최상위 유지와 국어 기술 독해 회복이 핵심입니다.",

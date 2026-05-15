@@ -19,8 +19,14 @@ export function StudentHeroSummary({ report }: { report: Middle3Report }) {
       </div>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <div className="rounded-3xl bg-white/10 p-5">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-300">현재 성장 상태</p>
-          <p className="mt-2 text-sm font-bold leading-7 text-white">{report.growthStatus}</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-emerald-200">현재 성장 상태</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {report.growthSignals.map((signal) => (
+              <span key={signal} className="rounded-full bg-emerald-300 px-3 py-1 text-xs font-black text-emerald-950">
+                {signal}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="rounded-3xl bg-white/10 p-5">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">위험 요소</p>

@@ -103,6 +103,7 @@ export type Middle3Report = {
   summary: StudentReportSummary;
   careerKeywords: string[];
   growthStatus: string;
+  growthSignals: string[];
   riskFactors: string[];
   aiComment: string;
   subjects: SubjectAnalysis[];

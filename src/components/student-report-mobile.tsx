@@ -468,13 +468,16 @@ function TopMissionSection({ items }: { items: string[] }) {
 function getSubjectGuideCards(report: StudentGuidanceReport) {
   if (report.reportType === "middle_3") {
     return report.subjects.map((subject) => {
-      const diff = subject.currentScore - subject.previousScore;
+      const latestScore = subject.chartValues[subject.chartValues.length - 1] ?? subject.currentScore;
+      const previousScore = subject.chartValues[subject.chartValues.length - 2] ?? subject.previousScore;
+      const previousLabel = subject.chartLabels[subject.chartLabels.length - 2] ?? "직전 학기";
+      const diff = latestScore - previousScore;
       const tone = subject.subject === "수학" ? "emerald" : subject.subject === "영어" ? "violet" : "orange";
       return {
         subject: `${subject.subject}${subject.subject === "수학" ? " (Math)" : subject.subject === "영어" ? " (English)" : " (Korean)"}`,
         status: subject.status,
-        score: `${subject.currentScore}점`,
-        trend: `${subject.chartLabels[0] ?? "이전"} 대비 ${Math.abs(diff)}점 ${diff >= 0 ? "상승" : "하락"}`,
+        score: `${latestScore}점`,
+        trend: `${previousLabel} 대비 ${Math.abs(diff)}점 ${diff >= 0 ? "상승" : "하락"}`,
         comment: subject.recommendedStrategy,
         className: subjectToneClass[tone].card,
         labelClassName: subjectToneClass[tone].text,

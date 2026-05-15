@@ -1,7 +1,9 @@
 import type { SubjectAnalysis } from "@/types/studentReport";
 
 export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
-  const diff = subject.currentScore - subject.previousScore;
+  const latestScore = subject.chartValues[subject.chartValues.length - 1] ?? subject.currentScore;
+  const previousScore = subject.chartValues[subject.chartValues.length - 2] ?? subject.previousScore;
+  const diff = latestScore - previousScore;
   const tone = subject.trend === "up" ? "emerald" : subject.trend === "down" ? "amber" : "sky";
 
   return (
@@ -14,7 +16,7 @@ export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
         <span className={`rounded-full px-3 py-1 text-xs font-black ${badgeClass[tone]}`}>{subject.status}</span>
       </div>
       <div className="mt-5 flex items-end gap-3">
-        <p className="text-4xl font-black text-slate-950">{subject.currentScore}</p>
+        <p className="text-4xl font-black text-slate-950">{latestScore}</p>
         <p className={`pb-1 text-sm font-black ${diff >= 0 ? "text-emerald-600" : "text-amber-600"}`}>
           {diff >= 0 ? "+" : ""}{diff}p
         </p>
