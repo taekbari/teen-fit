@@ -391,7 +391,6 @@ export function SchoolGradeDetailPanel({ data }: { data: SchoolGradeData }) {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-black text-emerald-300">School record view</p>
-            <h3 className="mt-1 text-2xl font-black">학기별 내신점수 종합</h3>
           </div>
           <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">
             {data.records.length}개 학기

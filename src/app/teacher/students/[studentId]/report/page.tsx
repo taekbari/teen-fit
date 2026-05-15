@@ -172,7 +172,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
 
             <SectionHeader
               eyebrow="School Record"
-              title="과목별 내신점수 상세"
+              title="학기별 내신점수 종합"
             />
             <section>
               <Card>
