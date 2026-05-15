@@ -93,7 +93,7 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
         />
         <section className="grid gap-5 lg:grid-cols-2">
           <InfoListCard title="학교생활 변화" items={report.adaptationGuide} />
-          <InfoListCard title="맞춤 생활 적응 전략" items={report.lifeStrategies} tone="emerald" />
+          <InfoListCard title="맞춤 활동 적응 전략" items={report.lifeStrategies} tone="emerald" />
         </section>
 
         <SectionHeader
@@ -110,7 +110,6 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
         <SectionHeader
           eyebrow="Action Plan"
           title="선생님 상담용 액션 플랜"
-          description="이번 달 우선 과제와 학부모 상담 코멘트를 바로 사용할 수 있게 구성했습니다."
         />
         <TeacherActionPlan actionPlan={report.actionPlan} />
       </div>

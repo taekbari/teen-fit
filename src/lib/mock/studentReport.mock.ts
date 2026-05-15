@@ -25,7 +25,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
       {
         id: "dunchon",
         name: "둔촌중학교",
-        fitLevel: "needs_preparation",
+        fitLevel: "medium",
         mainFeature: "심화 문항 변별력과 고난도 문제 대응이 중요합니다.",
         assessmentTrend: "수학 상 난이도 문항에서 조건 해석과 풀이 과정 서술이 점수 차이를 만듭니다.",
         studentStrategy: "수학 상 난이도 성취도 85% 이상을 목표로 연습합니다.",
@@ -79,7 +79,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         strategyName: "풀이 과정의 구조화",
         method: "모든 문제를 조건-개념-풀이-검토 4단계로 노트에 작성합니다.",
         goal: "고난도 문제 실수 감소 및 논리 서술력 강화",
-        counselingPoint: "정답보다 풀이 흐름을 안정화해 고난도 부담을 낮춥니다.",
+        counselingPoint: "정답만을 맞추려고 하기보다 풀이 흐름을 안정화해 고난도 부담을 낮춥니다.",
       },
       {
         subject: "심화 수학",
@@ -87,7 +87,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         priority: 4,
         strategyName: "자료와 가능성 기반 심화 문제 훈련",
         method: "통계 자료 해석형 심화 문제를 풀이합니다.",
-        goal: "수학 자신감 회복",
+        goal: "수학 자신감 상승",
         counselingPoint: "자료 해석 강점을 수학 심화 학습의 출발점으로 사용합니다.",
       },
     ],
