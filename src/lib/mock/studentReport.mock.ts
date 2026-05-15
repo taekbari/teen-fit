@@ -232,7 +232,14 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
       schoolRecordStrategy: ["모든 과목에서 IT 연계 보고서 작성", "논리적 문서 작성 역량 강조", "융합 탐구 활동을 학생부에 기록"],
       clubStrategy: ["소프트웨어/로봇/수학 탐구 동아리 참여", "프로젝트 주도 경험 확보"],
       collaborativeLearningStrategy: ["스터디 기반 토론 학습", "서로 문제 출제 및 피드백 반복"],
-      koreanRecoveryStrategy: ["기술 독해 훈련", "논리적 사고 회복"],
+      koreanRecoveryStrategy: [
+        "문법 복구: 중2 품사 개념 재정리",
+        "독해력 강화: 지문 구조 파악 및 핵심 키워드 추출",
+        "어휘력 강화: 한자어·추상어 단어장 정리",
+        "비문학 훈련: 하루 비문학 2지문 분석",
+        "문학의 객관화: 화자·시점·갈등 근거 분석",
+        "선행 학습: 중3 주요 시·소설 사전 독서",
+      ],
       parentCounselingPoint:
         "도윤이는 수학적 사고와 IT 탐구 성향이 뚜렷합니다. 고교 선택에서는 이공계 심화 환경을 우선 검토하되, 국어 하락세는 기술 독해와 논리적 보고서 작성 루틴으로 회복해야 합니다.",
       internalMemoPrompt: "지원 희망 고교의 과학중점/소프트웨어 프로그램, 동아리 운영, 최근 학생부 기록 사례를 상담 전 확인하세요.",

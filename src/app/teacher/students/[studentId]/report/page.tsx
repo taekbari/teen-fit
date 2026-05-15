@@ -15,6 +15,7 @@ import {
   AssessmentDetailPanel,
   Card,
   PersonalityAssessmentPanel,
+  SchoolGradeDetailPanel,
   formatDate,
 } from "@/components/report-ui";
 import { getStudentGuidanceReport } from "@/lib/api/studentReport";
@@ -161,6 +162,12 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
                 description={"분석적이고 꼼꼼했던 초등기를 지나, 중2로 오면서 ‘행동/확산/함께/자율’형으로 급격히 변화했습니다.\n이는 고등학교 진학 후 팀 프로젝트 기반의 IT 탐구 활동에 매우 적합한 성향입니다."}
               >
                 <PersonalityAssessmentPanel items={student.personalityHistory} />
+              </Card>
+            </section>
+
+            <section className="mt-5">
+              <Card title="과목별 내신점수 상세">
+                <SchoolGradeDetailPanel data={student.schoolGrades} />
               </Card>
             </section>
           </>

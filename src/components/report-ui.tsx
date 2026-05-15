@@ -1,6 +1,7 @@
 import type {
   DiagnosisSnapshot,
   PersonalitySnapshot,
+  SchoolGradeData,
   StudentRecord,
   SubjectAssessmentRecord,
   SubjectScore,
@@ -325,7 +326,6 @@ export function AssessmentDetailPanel({
   assessments: SubjectAssessmentRecord[];
 }) {
   const subjects = ["국어", "영어", "수학"] as const;
-  const periods = Array.from(new Set(assessments.map((assessment) => assessment.period)));
   const bySubject = subjects.map((subject) => ({
     subject,
     items: assessments.filter((assessment) => assessment.subject === subject),
@@ -333,63 +333,6 @@ export function AssessmentDetailPanel({
 
   return (
     <div className="grid gap-6">
-      <section className="rounded-2xl bg-slate-950 p-5 text-white">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-black text-emerald-300">All semester view</p>
-            <h3 className="mt-1 text-2xl font-black">학기별 진단평가 종합</h3>
-          </div>
-          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">
-            {periods.length}개 시기
-          </span>
-        </div>
-
-        <div className="mt-5 overflow-x-auto">
-          <div className="min-w-[620px] overflow-hidden rounded-2xl border border-white/10">
-            <div
-              className="grid bg-white/10 text-xs font-black text-slate-300"
-              style={{ gridTemplateColumns: `90px repeat(${periods.length}, minmax(110px, 1fr))` }}
-            >
-              <div className="p-3">과목</div>
-              {periods.map((period) => (
-                <div key={period} className="p-3 text-center">
-                  {period}
-                </div>
-              ))}
-            </div>
-            {bySubject.map(({ subject, items }) => (
-              <div
-                key={subject}
-                className="grid border-t border-white/10 text-sm"
-                style={{ gridTemplateColumns: `90px repeat(${periods.length}, minmax(110px, 1fr))` }}
-              >
-                <div className="p-3 font-black">{subject}</div>
-                {periods.map((period) => {
-                  const item = items.find((assessment) => assessment.period === period);
-                  const previousIndex = periods.indexOf(period) - 1;
-                  const previous = previousIndex >= 0
-                    ? items.find((assessment) => assessment.period === periods[previousIndex])
-                    : undefined;
-                  const diff = item && previous ? item.totalScore - previous.totalScore : 0;
-
-                  return (
-                    <div key={period} className="p-3 text-center">
-                      <p className="font-black">{item ? `${item.totalScore}점` : "-"}</p>
-                      {item ? (
-                        <p className="mt-1 text-xs text-slate-300">
-                          상위 {Math.round(item.topPercent * 100)}%
-                          {previous ? ` · ${diff >= 0 ? "+" : ""}${diff}` : ""}
-                        </p>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {bySubject.map(({ subject, items }) => {
         const first = items[0];
         const latest = items.at(-1);
@@ -431,6 +374,85 @@ export function AssessmentDetailPanel({
           </details>
         );
       })}
+    </div>
+  );
+}
+
+export function SchoolGradeDetailPanel({ data }: { data: SchoolGradeData }) {
+  const subjects = [
+    { label: "국어", key: "korean" },
+    { label: "영어", key: "english" },
+    { label: "수학", key: "math" },
+  ] as const;
+
+  return (
+    <div className="grid gap-6">
+      <section className="rounded-2xl bg-slate-950 p-5 text-white">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-black text-emerald-300">School record view</p>
+            <h3 className="mt-1 text-2xl font-black">학기별 내신점수 종합</h3>
+          </div>
+          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">
+            {data.records.length}개 학기
+          </span>
+        </div>
+
+        <div className="mt-5 overflow-x-auto">
+          <div className="min-w-[520px] overflow-hidden rounded-2xl border border-white/10">
+            <div
+              className="grid bg-white/10 text-xs font-black text-slate-300"
+              style={{ gridTemplateColumns: `90px repeat(${data.records.length}, minmax(110px, 1fr))` }}
+            >
+              <div className="p-3">과목</div>
+              {data.records.map((record) => (
+                <div key={record.period} className="p-3 text-center">
+                  {record.period}
+                </div>
+              ))}
+            </div>
+            {subjects.map((subject) => (
+              <div
+                key={subject.key}
+                className="grid border-t border-white/10 text-sm"
+                style={{ gridTemplateColumns: `90px repeat(${data.records.length}, minmax(110px, 1fr))` }}
+              >
+                <div className="p-3 font-black">{subject.label}</div>
+                {data.records.map((record, index) => {
+                  const previous = data.records[index - 1];
+                  const score = record[subject.key];
+                  const diff = previous ? score - previous[subject.key] : 0;
+
+                  return (
+                    <div key={`${subject.key}-${record.period}`} className="p-3 text-center">
+                      <p className="font-black">{score}점</p>
+                      {previous ? (
+                        <p className={`mt-1 text-xs font-black ${diff >= 0 ? "text-emerald-300" : "text-amber-300"}`}>
+                          {diff >= 0 ? "+" : ""}
+                          {diff}p
+                        </p>
+                      ) : (
+                        <p className="mt-1 text-xs text-slate-400">기준 학기</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        {data.analysisComments.map((comment) => (
+          <article key={comment.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+            <p className="text-sm font-black text-emerald-600">분석 멘트</p>
+            <h3 className="mt-1 text-xl font-black text-slate-950">{comment.title}</h3>
+            <p className="mt-3 text-sm font-bold leading-6 text-slate-600">{comment.description}</p>
+          </article>
+        ))}
+      </section>
+
     </div>
   );
 }

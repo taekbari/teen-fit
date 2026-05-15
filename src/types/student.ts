@@ -84,6 +84,30 @@ export type SubjectAssessmentRecord = {
   };
 };
 
+export type SchoolGradeRecord = {
+  period: string;
+  korean: number;
+  english: number;
+  math: number;
+};
+
+export type SchoolGradeAnalysisComment = {
+  title: string;
+  description: string;
+};
+
+export type SchoolGradeStudyStrategy = {
+  category: string;
+  coreTask: string;
+  action: string;
+};
+
+export type SchoolGradeData = {
+  records: SchoolGradeRecord[];
+  analysisComments: SchoolGradeAnalysisComment[];
+  studyStrategies: SchoolGradeStudyStrategy[];
+};
+
 export type CareerTimelineItem = {
   date: string;
   goal: string;
@@ -123,6 +147,7 @@ export type StudentRecord = {
   diagnosisHistory: DiagnosisSnapshot[];
   subjectGrowth: SubjectScore[];
   subjectAssessments: SubjectAssessmentRecord[];
+  schoolGrades: SchoolGradeData;
   careerTimeline: CareerTimelineItem[];
   schoolAssessmentInsights: SchoolAssessmentInsight[];
   academicSchedule: AcademicScheduleItem[];

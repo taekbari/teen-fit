@@ -3,6 +3,7 @@ import {
   excelAssessmentMock,
 } from "@/lib/mock/assessmentData";
 import { excelPersonalityHistory } from "@/lib/mock/personalityData";
+import { excelSchoolGradeMock } from "@/lib/mock/schoolGradeData";
 import type { StudentRecord } from "@/types/student";
 
 const excelSubjectGrowth = createSubjectGrowthFromAssessments(excelAssessmentMock);
@@ -55,6 +56,7 @@ export const mockStudents: StudentRecord[] = [
     ],
     subjectGrowth: excelSubjectGrowth,
     subjectAssessments: excelAssessmentMock,
+    schoolGrades: excelSchoolGradeMock,
     careerTimeline: [
       {
         date: "2024-09-10",
@@ -147,6 +149,7 @@ export const mockStudents: StudentRecord[] = [
     ],
     subjectGrowth: excelSubjectGrowth,
     subjectAssessments: excelAssessmentMock,
+    schoolGrades: excelSchoolGradeMock,
     careerTimeline: [
       {
         date: "2025-03-12",
@@ -239,6 +242,7 @@ export const mockStudents: StudentRecord[] = [
     ],
     subjectGrowth: excelSubjectGrowth,
     subjectAssessments: excelAssessmentMock,
+    schoolGrades: excelSchoolGradeMock,
     careerTimeline: [
       {
         date: "2025-03-12",
