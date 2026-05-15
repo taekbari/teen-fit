@@ -133,6 +133,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         improvements: ["상 난이도 심화 문제 정복", "풀이 과정의 논리 서술 강화"],
         recommendedStrategy: "기하와 함수 개념을 코딩으로 구현해 수학 개념을 프로젝트 산출물로 연결합니다.",
         chartValues: [76, 82, 86, 90],
+        chartLabels: ["중2 1학기", "중2 2학기", "중3 1학기", "중3 2학기"],
       },
       {
         subject: "국어",
@@ -144,6 +145,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         improvements: ["논리적 글쓰기 회복", "기술 독해 훈련", "IT 연계 보고서 작성"],
         recommendedStrategy: "기술 기사와 IT 리포트를 읽고 주장-근거-자료 구조로 요약합니다.",
         chartValues: [89, 84, 80, 78],
+        chartLabels: ["중2 1학기", "중2 2학기", "중3 1학기", "중3 2학기"],
       },
       {
         subject: "영어",
@@ -155,6 +157,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
         improvements: ["최상위권 도약 전략", "AI/반도체 주제 어휘 확장"],
         recommendedStrategy: "AI·반도체 관련 짧은 영어 글을 읽고 핵심 문장을 기술 요약문으로 정리합니다.",
         chartValues: [82, 84, 85, 86],
+        chartLabels: ["중2 1학기", "중2 2학기", "중3 1학기", "중3 2학기"],
       },
     ],
     roadmap: [

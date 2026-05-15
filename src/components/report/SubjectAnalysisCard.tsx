@@ -19,13 +19,24 @@ export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
           {diff >= 0 ? "+" : ""}{diff}p
         </p>
       </div>
-      <div className="mt-5 flex h-24 items-end gap-2 rounded-2xl bg-slate-50 p-3">
+      <div className="mt-5 rounded-2xl bg-slate-50 p-3">
+        <div className="flex h-24 items-end gap-2">
         {subject.chartValues.map((value, index) => (
           <div key={`${subject.subject}-${index}`} className="flex flex-1 flex-col items-center gap-2">
             <div className={`w-full rounded-t-lg ${barClass[tone]}`} style={{ height: `${Math.max(12, value * 0.72)}px` }} />
-            <span className="text-[10px] font-black text-slate-400">{value}</span>
           </div>
         ))}
+        </div>
+        <div className="mt-3 grid gap-2" style={{ gridTemplateColumns: `repeat(${subject.chartValues.length}, minmax(0, 1fr))` }}>
+          {subject.chartValues.map((value, index) => (
+            <div key={`${subject.subject}-label-${index}`} className="text-center">
+              <p className="text-[10px] font-black leading-4 text-slate-500">
+                {subject.chartLabels[index] ?? `${index + 1}차`}
+              </p>
+              <p className="mt-1 text-xs font-black text-slate-950">{value}점</p>
+            </div>
+          ))}
+        </div>
       </div>
       <List title="강점" items={subject.strengths} />
       <List title="보완점" items={subject.improvements} />

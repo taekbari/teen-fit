@@ -59,6 +59,7 @@ export type SubjectAnalysis = {
   improvements: string[];
   recommendedStrategy: string;
   chartValues: number[];
+  chartLabels: string[];
 };
 
 export type RoadmapStep = {
