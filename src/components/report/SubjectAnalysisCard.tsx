@@ -3,6 +3,7 @@ import type { SubjectAnalysis } from "@/types/studentReport";
 export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
   const latestScore = subject.chartValues[subject.chartValues.length - 1] ?? subject.currentScore;
   const previousScore = subject.chartValues[subject.chartValues.length - 2] ?? subject.previousScore;
+  const previousLabel = formatComparisonLabel(subject.chartLabels[subject.chartLabels.length - 2]);
   const diff = latestScore - previousScore;
   const tone = subject.trend === "up" ? "emerald" : subject.trend === "down" ? "amber" : "sky";
 
@@ -19,6 +20,7 @@ export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
         <p className="text-4xl font-black text-slate-950">{latestScore}</p>
         <p className={`pb-1 text-sm font-black ${diff >= 0 ? "text-emerald-600" : "text-amber-600"}`}>
           {diff >= 0 ? "+" : ""}{diff}p
+          {previousLabel ? <span className="ml-1 text-xs">({previousLabel} 대비)</span> : null}
         </p>
       </div>
       <div className="mt-5 rounded-2xl bg-slate-50 p-3">
@@ -48,6 +50,14 @@ export function SubjectAnalysisCard({ subject }: { subject: SubjectAnalysis }) {
       </div>
     </article>
   );
+}
+
+function formatComparisonLabel(label?: string) {
+  if (!label) {
+    return "";
+  }
+
+  return label.replace(/^중(\d)/, "$1학년");
 }
 
 function List({ title, items }: { title: string; items: string[] }) {

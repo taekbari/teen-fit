@@ -10,7 +10,7 @@ export function StrategyPlanCard({ plan }: { plan: StrategyPlan }) {
           <p className="text-xs font-black text-slate-500">학습 전략 플랜</p>
           <h3 className="mt-1 text-2xl font-black text-slate-950">{plan.subject}</h3>
         </div>
-        <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-black text-white">목표 {plan.targetScore}점 이상</span>
+        <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-black text-white">목표 {plan.targetScore}점 이상 유지</span>
       </div>
       <div className="mt-5">
         <div className="flex items-center justify-between text-sm font-black">

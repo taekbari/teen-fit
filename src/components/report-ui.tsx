@@ -18,7 +18,7 @@ export function Card({
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       {title ? <h2 className="text-xl font-black text-slate-950">{title}</h2> : null}
-      {description ? <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p> : null}
+      {description ? <p className="mt-2 whitespace-pre-line text-sm leading-6 text-slate-500">{description}</p> : null}
       <div className={title || description ? "mt-5" : ""}>{children}</div>
     </section>
   );
@@ -239,7 +239,7 @@ export function PersonalityAssessmentPanel({
           <div>
             <p className="text-sm font-black text-emerald-300">Latest personality scale</p>
             <h3 className="mt-1 text-2xl font-black">
-              {latest.stage ?? `${latest.year}년`} 수치 프로필
+              {latest.stage ?? `${latest.year}년`} 성향검사 결과 상세
             </h3>
           </div>
           <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">

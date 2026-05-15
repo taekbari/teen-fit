@@ -132,7 +132,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
 
         <StudentHeroSummary report={report} />
 
-        <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드" description="수학·국어·영어의 현재 상태와 상담 전략을 카드로 정리했습니다." />
+        <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드" />
         <section className="grid gap-5 lg:grid-cols-3">
           {report.subjects.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
         </section>
@@ -142,12 +142,11 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
             <SectionHeader
               eyebrow="Assessment Data"
               title="성향검사·진단평가 근거 데이터"
-              description="과목별 상태 분석과 중복되는 진단 변화 그래프는 제외하고, 상담 근거가 되는 성향 변화와 평가 상세를 확인합니다."
             />
             <section>
               <Card
                 title="성향검사 누적 변화"
-                description="성향 변화와 정성 기록을 함께 확인해 고교 선택과 학습 방식에 반영합니다."
+                description={"분석적이고 꼼꼼했던 초등기를 지나, 중2로 오면서 ‘행동/확산/함께/자율’형으로 급격히 변화했습니다.\n이는 고등학교 진학 후 팀 프로젝트 기반의 IT 탐구 활동에 매우 적합한 성향입니다."}
               >
                 <PersonalityAssessmentPanel items={student.personalityHistory} />
               </Card>
@@ -156,7 +155,6 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
             <section className="mt-5">
               <Card
                 title="진단평가 상세"
-                description="과목별 영역 성취도와 난이도별 성취도를 확인해 고교 준비 전략에 반영합니다."
               >
                 <AssessmentDetailPanel assessments={student.subjectAssessments} />
               </Card>
@@ -164,7 +162,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
           </>
         ) : null}
 
-        <SectionHeader eyebrow="Roadmap" title="진학 로드맵 타임라인" description="중3 1학기부터 대학 진학 방향까지 단계별 실행 흐름입니다." />
+        <SectionHeader eyebrow="Roadmap" title="진학 로드맵 타임라인" />
         <RoadmapTimeline steps={report.roadmap} />
 
         <SectionHeader eyebrow="High School" title="추천 고등학교" description="IT/반도체 진로와 연결되는 고교 유형을 우선순위로 제안합니다." />
@@ -172,10 +170,10 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
           {report.highSchools.map((school) => <HighSchoolRecommendationCard key={school.schoolType} school={school} />)}
         </section>
 
-        <SectionHeader eyebrow="Major Track" title="추천 학과" description="4년제와 2년제 진학 경로를 비교할 수 있게 정리했습니다." />
+        <SectionHeader eyebrow="Major Track" title="추천 학과" />
         <MajorRecommendationSection majors={report.majors} />
 
-        <SectionHeader eyebrow="Credit System" title="고교학점제 추천 과목" description="고등학교 선택 과목을 진로 역량과 연결합니다." />
+        <SectionHeader eyebrow="Credit System" title="고교학점제 추천 과목" />
         <CreditCourseTagSection groups={report.creditCourses} />
 
         <SectionHeader eyebrow="Strategy" title="학습 전략 플랜" description="수학과 과학 목표 점수, 진행률, 체크리스트를 함께 보여줍니다." />
@@ -183,7 +181,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
           {report.strategyPlans.map((plan) => <StrategyPlanCard key={plan.subject} plan={plan} />)}
         </section>
 
-        <SectionHeader eyebrow="Teacher Consulting" title="선생님 상담 액션 플랜" description="학생부, 동아리, 학부모 상담 포인트를 상담 현장에서 바로 활용합니다." />
+        <SectionHeader eyebrow="Teacher Consulting" title="선생님 상담 액션 플랜" />
         <TeacherConsultingPanel plan={report.consultingPlan} />
       </div>
     </main>
@@ -225,13 +223,15 @@ function SectionHeader({
 }: {
   eyebrow: string;
   title: string;
-  description: string;
+  description?: string;
 }) {
   return (
     <div className="mt-10 mb-4">
       <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-600">{eyebrow}</p>
       <h2 className="mt-2 text-2xl font-black text-slate-950 md:text-3xl">{title}</h2>
-      <p className="mt-2 max-w-3xl text-sm font-bold leading-6 text-slate-500">{description}</p>
+      {description ? (
+        <p className="mt-2 max-w-3xl text-sm font-bold leading-6 text-slate-500">{description}</p>
+      ) : null}
     </div>
   );
 }
