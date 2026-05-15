@@ -138,7 +138,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
 
         <StudentHeroSummary report={report} />
 
-        <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드 (진단평가 추가)" />
+        <SectionHeader eyebrow="Subject Dashboard" title="진단평가 과목 분석 대시보드" />
         <section className="grid gap-5 lg:grid-cols-3">
           {subjectAnalyses.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
         </section>
@@ -239,7 +239,7 @@ function AchievementInsightPanel({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-black text-slate-500">초6 학습 성취도</p>
-            <h3 className="mt-1 text-2xl font-black text-slate-950">학습 분석 대시보드</h3>
+            <h3 className="mt-1 text-2xl font-black text-slate-950">진단평가, 성향검사 결과 종합</h3>
           </div>
           <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700 ring-1 ring-blue-100">
             {report.summaryBadge}
@@ -258,7 +258,7 @@ function AchievementInsightPanel({
           <p className="text-sm font-black text-slate-500">학습 성향 및 태도</p>
           <div className="mt-4 grid gap-4">
             <div>
-              <p className="text-xs font-black text-slate-400">주요 관심 과목</p>
+              <p className="text-xs font-black text-slate-700">주요 관심 과목</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {report.learningProfile.interests.map((interest) => (
                   <span key={interest} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">
@@ -295,9 +295,6 @@ function AchievementInsightPanel({
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-xs font-bold text-slate-400">
-            매체 유형 선호: {report.mediaPreference}
-          </p>
         </article>
       </section>
     </section>
@@ -317,21 +314,10 @@ function AchievementSubjectCard({
         <h4 className="text-xl font-black text-slate-800">{subject.subject}</h4>
         <span className={`text-sm font-black ${tone.text}`}>{subject.percentileLabel}</span>
       </div>
-      <p className="mt-4 text-4xl font-black text-slate-950">
+      <p className={`mt-4 text-4xl font-black ${tone.text}`}>
         {subject.score}
         <span className="ml-1 text-lg font-bold text-slate-400">점</span>
       </p>
-      <div className="mt-4 grid gap-2">
-        {subject.details.map((detail) => (
-          <div key={detail.label} className="flex items-center justify-between text-sm font-bold">
-            <span className="text-slate-500">{detail.label}</span>
-            <span className="text-slate-800">{detail.value}</span>
-          </div>
-        ))}
-      </div>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
-        <div className={`h-full rounded-full ${tone.bg}`} style={{ width: `${subject.score}%` }} />
-      </div>
     </div>
   );
 }

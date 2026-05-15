@@ -20,6 +20,7 @@ export type SchoolFit = {
   assessmentTrend: string;
   studentStrategy: string;
   recommendationPoint: string;
+  counselingMemoPlaceholder: string;
 };
 
 export type LearningStrategy = {
