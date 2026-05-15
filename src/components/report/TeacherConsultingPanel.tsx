@@ -17,8 +17,6 @@ export function TeacherConsultingPanel({ plan }: { plan: Middle3Report["consulti
       <div className="grid gap-5">
         <Panel title="학생부 전략" items={plan.schoolRecordStrategy} />
         <Panel title="동아리 전략" items={plan.clubStrategy} />
-        <Panel title="함께형 학습 전략" items={plan.collaborativeLearningStrategy} />
-        <Panel title="국어 학습 전략" items={plan.koreanRecoveryStrategy} />
         <Comment title="학부모 상담 포인트" value={plan.parentCounselingPoint} dark />
         <Comment title="내부 메모" value={plan.internalMemoPrompt} />
       </div>

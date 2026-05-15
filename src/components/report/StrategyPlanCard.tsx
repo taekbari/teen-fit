@@ -2,6 +2,7 @@ import type { StrategyPlan } from "@/types/studentReport";
 
 export function StrategyPlanCard({ plan }: { plan: StrategyPlan }) {
   const progress = Math.min(100, Math.round((plan.currentScore / plan.targetScore) * 100));
+  const progressTone = getProgressTone(progress);
 
   return (
     <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -15,15 +16,63 @@ export function StrategyPlanCard({ plan }: { plan: StrategyPlan }) {
       <div className="mt-5">
         <div className="flex items-center justify-between text-sm font-black">
           <span className="text-slate-500">현재 대비 목표 달성률</span>
-          <span className="text-slate-950">{progress}%</span>
+          <span className={progressTone.text}>{progress}%</span>
         </div>
         <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-100">
-          <div className="h-full rounded-full bg-emerald-500" style={{ width: `${progress}%` }} />
+          <div className={`h-full rounded-full ${progressTone.bar}`} style={{ width: `${progress}%` }} />
         </div>
       </div>
       <ul className="mt-5 grid gap-2">
-        {plan.strategies.map((strategy) => <li key={strategy} className="rounded-2xl bg-slate-50 p-3 text-sm font-bold leading-6 text-slate-700">✓ {strategy}</li>)}
+        {plan.strategies.map((strategy) => (
+          <StrategyItem key={getStrategyKey(strategy)} strategy={strategy} />
+        ))}
       </ul>
     </article>
   );
+}
+
+function StrategyItem({
+  strategy,
+}: {
+  strategy: StrategyPlan["strategies"][number];
+}) {
+  if (typeof strategy === "string") {
+    return (
+      <li className="rounded-2xl bg-slate-50 p-3 text-sm font-bold leading-6 text-slate-700">
+        ✓ {strategy}
+      </li>
+    );
+  }
+
+  return (
+    <li className="rounded-2xl bg-slate-50 p-3 text-sm leading-6 text-slate-700">
+      <span className="font-black text-slate-950">✓ {strategy.task}</span>
+      <span className="font-bold"> : {strategy.action}</span>
+    </li>
+  );
+}
+
+function getStrategyKey(strategy: StrategyPlan["strategies"][number]) {
+  return typeof strategy === "string" ? strategy : `${strategy.task}-${strategy.action}`;
+}
+
+function getProgressTone(progress: number) {
+  if (progress >= 90) {
+    return {
+      text: "text-emerald-600",
+      bar: "bg-emerald-500",
+    };
+  }
+
+  if (progress >= 80) {
+    return {
+      text: "text-amber-600",
+      bar: "bg-amber-500",
+    };
+  }
+
+  return {
+    text: "text-rose-600",
+    bar: "bg-rose-500",
+  };
 }

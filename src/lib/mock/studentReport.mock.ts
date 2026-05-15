@@ -212,7 +212,7 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
     ],
     roadmap: [
       {
-        stage: "중3 1학기",
+        stage: "중3-1",
         title: "내신 최상위 기반 만들기",
         description: "수학/과학 내신 최상위권을 유지하면서 국어 독해력 하락을 회복합니다.",
         actions: ["수학/과학 내신 최상위 유지", "국어 독해력 보강", "IT 관련 동아리 활동 참여"],
@@ -278,6 +278,19 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
     strategyPlans: [
       { subject: "수학", targetScore: 90, currentScore: 86, strategies: ["상 난이도 심화 문제 정복", "기하/함수 완전 이해"] },
       { subject: "과학", targetScore: 90, currentScore: 84, strategies: ["물리 단원 집중", "전기/자기/에너지 개념 완벽 이해"] },
+      {
+        subject: "국어",
+        targetScore: 90,
+        currentScore: 80,
+        strategies: [
+          { task: "문법 복구", action: "중2 품사 개념 재정리" },
+          { task: "독해력 강화", action: "지문 구조 파악 및 핵심 키워드 추출" },
+          { task: "어휘력 강화", action: "한자어·추상어 단어장 정리" },
+          { task: "비문학 훈련", action: "하루 비문학 2지문 분석" },
+          { task: "문학의 객관화", action: "화자·시점·갈등 근거 분석" },
+          { task: "선행 학습", action: "중3 주요 시·소설 사전 독서" },
+        ],
+      },
     ],
     consultingPlan: {
       monthlyFocus: ["수학/과학 내신 최상위 유지", "국어 기술 독해 훈련", "IT 관련 동아리 활동 참여"],

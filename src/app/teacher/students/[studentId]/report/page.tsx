@@ -91,7 +91,7 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
           title="중학교 적응 안내"
           description="예비 중1 전환기에 학생과 학부모가 먼저 알고 준비해야 할 변화입니다."
         />
-        <section className="grid gap-5 lg:grid-cols-2">
+        <section className="grid gap-5 lg:grid-cols-3">
           <InfoListCard title="학교생활 변화" items={report.adaptationGuide} />
           <InfoListCard title="맞춤 활동 적응 전략" items={report.lifeStrategies} tone="emerald" />
         </section>
@@ -138,7 +138,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
 
         <StudentHeroSummary report={report} />
 
-        <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드" />
+        <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드 (진단평가 추가)" />
         <section className="grid gap-5 lg:grid-cols-3">
           {subjectAnalyses.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
         </section>
@@ -188,7 +188,7 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
         <SectionHeader eyebrow="Credit System" title="고교학점제 추천 과목" />
         <CreditCourseTagSection groups={report.creditCourses} />
 
-        <SectionHeader eyebrow="Strategy" title="학습 전략 플랜" description="수학과 과학 목표 점수, 진행률, 체크리스트를 함께 보여줍니다." />
+        <SectionHeader eyebrow="Strategy" title="학습 전략 플랜" description="전략 과목의 목표 점수, 진행률, 체크리스트를 함께 보여줍니다." />
         <section className="grid gap-5 lg:grid-cols-2">
           {report.strategyPlans.map((plan) => <StrategyPlanCard key={plan.subject} plan={plan} />)}
         </section>
@@ -413,7 +413,7 @@ function buildSubjectAnalysesFromAssessments(
     }
 
     const chartValues = subjectAssessments.map((assessment) => assessment.totalScore);
-    const chartLabels = subjectAssessments.map((assessment) => formatAssessmentPeriod(assessment.period));
+    const chartLabels = subjectAssessments.map((assessment) => assessment.period);
     const currentScore = chartValues.at(-1) ?? subject.currentScore;
     const previousScore = chartValues.at(-2) ?? subject.previousScore;
     const diff = currentScore - previousScore;
@@ -427,16 +427,6 @@ function buildSubjectAnalysesFromAssessments(
       chartLabels,
     };
   });
-}
-
-function formatAssessmentPeriod(period: string) {
-  const match = period.match(/^중(\d)-(\d)$/);
-
-  if (!match) {
-    return period;
-  }
-
-  return `중${match[1]} ${match[2]}학기`;
 }
 
 function toTrendDirection(diff: number): TrendDirection {

@@ -131,10 +131,13 @@ export type CreditCourseGroup = {
 };
 
 export type StrategyPlan = {
-  subject: "수학" | "과학";
+  subject: "국어" | "수학" | "과학";
   targetScore: number;
   currentScore: number;
-  strategies: string[];
+  strategies: Array<string | {
+    task: string;
+    action: string;
+  }>;
 };
 
 export type Middle3Report = {

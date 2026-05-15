@@ -2,9 +2,9 @@ import type { SchoolGradeData } from "@/types/student";
 
 export const excelSchoolGradeMock: SchoolGradeData = {
   records: [
-    { period: "중1-2학기", math: 85, korean: 90, english: 92 },
-    { period: "중2-1학기", math: 92, korean: 86, english: 88 },
-    { period: "중2-2학기", math: 94, korean: 79, english: 90 },
+    { period: "중1-2", math: 85, korean: 90, english: 92 },
+    { period: "중2-1", math: 92, korean: 86, english: 88 },
+    { period: "중2-2", math: 94, korean: 79, english: 90 },
   ],
   analysisComments: [
     {
@@ -15,7 +15,7 @@ export const excelSchoolGradeMock: SchoolGradeData = {
     {
       title: "국어의 위기",
       description:
-        "국어 성적의 하락 원인을 분석할 필요가 있습니다. 중학교 2학년 2학기 국어는 문법이나 문학 비중이 커지면서 난이도가 급격히 상승하는 구간이기도 하므로, 학습 방법의 점검이 시급합니다.",
+        "국어 성적의 하락 원인을 분석할 필요가 있습니다. 중학교 3학년 1학기 국어는 문법이나 문학 비중이 커지면서 난이도가 급격히 상승하는 구간이기도 하므로, 학습 방법의 점검이 시급합니다.",
     },
     {
       title: "균형 잡힌 평균",

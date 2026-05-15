@@ -432,7 +432,7 @@ export function SchoolGradeDetailPanel({ data }: { data: SchoolGradeData }) {
                           {diff}p
                         </p>
                       ) : (
-                        <p className="mt-1 text-xs text-slate-400">기준 학기</p>
+                        <p className="mt-1 text-xs text-slate-400">시작 학기</p>
                       )}
                     </div>
                   );
@@ -446,8 +446,7 @@ export function SchoolGradeDetailPanel({ data }: { data: SchoolGradeData }) {
       <section className="grid gap-4 lg:grid-cols-3">
         {data.analysisComments.map((comment) => (
           <article key={comment.title} className="rounded-2xl border border-slate-200 bg-white p-5">
-            <p className="text-sm font-black text-emerald-600">분석 멘트</p>
-            <h3 className="mt-1 text-xl font-black text-slate-950">{comment.title}</h3>
+            <h3 className="text-xl font-black text-slate-950">{comment.title}</h3>
             <p className="mt-3 text-sm font-bold leading-6 text-slate-600">{comment.description}</p>
           </article>
         ))}
