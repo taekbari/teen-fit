@@ -53,6 +53,58 @@ export const mockStudentGuidanceReports: StudentGuidanceReport[] = [
       "방송부 또는 자율 독서 토론부를 우선 탐색합니다.",
       "기사 쓰기 포트폴리오를 동아리 선발 자료로 활용합니다.",
     ],
+    achievementReport: {
+      summaryBadge: "종합 상위 5.6% 평균",
+      subjects: [
+        {
+          subject: "국어",
+          score: 95,
+          percentileLabel: "상위 2%",
+          tone: "blue",
+          details: [
+            { label: "문학/문법", value: "98%/92%" },
+            { label: "듣기/말하기", value: "96%" },
+          ],
+        },
+        {
+          subject: "수학",
+          score: 88,
+          percentileLabel: "상위 10%",
+          tone: "emerald",
+          details: [
+            { label: "수와 연산", value: "86%" },
+            { label: "자료와 가능성", value: "92%" },
+          ],
+        },
+        {
+          subject: "영어",
+          score: 92,
+          percentileLabel: "상위 5%",
+          tone: "violet",
+          details: [
+            { label: "어휘력", value: "98%" },
+            { label: "읽기/쓰기", value: "96%/92%" },
+          ],
+        },
+      ],
+      learningProfile: {
+        interests: ["국어", "사회", "영어"],
+        attitude: "비판적 읽기, 사회 현상 질문 중심 탐구",
+        coreStrength: "문맥 파악 능력, 논리적 글쓰기",
+        coachingFocus: "객관적 사실과 주관적 견해 구분하기, 미디어 리터러시 함양",
+      },
+      behaviorAxes: [
+        { leftLabel: "분석형", leftScore: 22, rightLabel: "통합형", rightScore: 3, dominantSide: "left" },
+        { leftLabel: "숙고형", leftScore: 20, rightLabel: "행동형", rightScore: 5, dominantSide: "left" },
+        { leftLabel: "외재형", leftScore: 5, rightLabel: "내재형", rightScore: 20, dominantSide: "right" },
+        { leftLabel: "타율형", leftScore: 8, rightLabel: "자율형", rightScore: 17, dominantSide: "right" },
+      ],
+      preferences: [
+        { label: "선호 시간", value: "아침형" },
+        { label: "선호 장소", value: "도서관/학습실" },
+      ],
+      mediaPreference: "신문/뉴스 콘텐츠",
+    },
     learningStrategies: [
       {
         subject: "국어",

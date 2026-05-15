@@ -38,12 +38,51 @@ export type TeacherActionPlan = {
   internalMemoGuide: string;
 };
 
+export type PreMiddleAchievementSubject = {
+  subject: string;
+  score: number;
+  percentileLabel: string;
+  tone: "blue" | "emerald" | "violet";
+  details: Array<{
+    label: string;
+    value: string;
+  }>;
+};
+
+export type PreMiddleLearningProfile = {
+  interests: string[];
+  attitude: string;
+  coreStrength: string;
+  coachingFocus: string;
+};
+
+export type PreMiddleBehaviorAxis = {
+  leftLabel: string;
+  leftScore: number;
+  rightLabel: string;
+  rightScore: number;
+  dominantSide: "left" | "right";
+};
+
+export type PreMiddleAchievementReport = {
+  summaryBadge: string;
+  subjects: PreMiddleAchievementSubject[];
+  learningProfile: PreMiddleLearningProfile;
+  behaviorAxes: PreMiddleBehaviorAxis[];
+  preferences: Array<{
+    label: string;
+    value: string;
+  }>;
+  mediaPreference: string;
+};
+
 export type PreMiddleReport = {
   reportType: "pre_middle_1";
   summary: StudentReportSummary;
   schoolFits: SchoolFit[];
   adaptationGuide: string[];
   lifeStrategies: string[];
+  achievementReport: PreMiddleAchievementReport;
   learningStrategies: LearningStrategy[];
   actionPlan: TeacherActionPlan;
 };

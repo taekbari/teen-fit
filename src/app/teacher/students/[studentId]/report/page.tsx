@@ -96,6 +96,8 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
           <InfoListCard title="맞춤 활동 적응 전략" items={report.lifeStrategies} tone="emerald" />
         </section>
 
+        <AchievementInsightPanel report={report.achievementReport} />
+
         <SectionHeader
           eyebrow="Learning Strategy"
           title="맞춤 학습 전략"
@@ -225,6 +227,179 @@ function InfoListCard({
     </article>
   );
 }
+
+function AchievementInsightPanel({
+  report,
+}: {
+  report: PreMiddleReport["achievementReport"];
+}) {
+  return (
+    <section className="mt-5 grid gap-5">
+      <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-black text-slate-500">초6 학습 성취도</p>
+            <h3 className="mt-1 text-2xl font-black text-slate-950">학습 분석 대시보드</h3>
+          </div>
+          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700 ring-1 ring-blue-100">
+            {report.summaryBadge}
+          </span>
+        </div>
+
+        <div className="mt-5 grid gap-4 lg:grid-cols-3">
+          {report.subjects.map((subject) => (
+            <AchievementSubjectCard key={subject.subject} subject={subject} />
+          ))}
+        </div>
+      </article>
+
+      <section className="grid gap-5 lg:grid-cols-2">
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-sm font-black text-slate-500">학습 성향 및 태도</p>
+          <div className="mt-4 grid gap-4">
+            <div>
+              <p className="text-xs font-black text-slate-400">주요 관심 과목</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {report.learningProfile.interests.map((interest) => (
+                  <span key={interest} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              <ProfileNote label="학습 태도" value={report.learningProfile.attitude} tone="blue" />
+              <ProfileNote label="핵심 강점" value={report.learningProfile.coreStrength} tone="emerald" />
+            </div>
+            <div className="rounded-2xl bg-amber-50 p-4">
+              <p className="text-xs font-black text-amber-700">지도 핵심</p>
+              <p className="mt-2 text-sm font-bold leading-6 text-slate-700">
+                {report.learningProfile.coachingFocus}
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-sm font-black text-slate-500">인지 및 행동 방식</p>
+          <div className="mt-4 grid gap-4">
+            {report.behaviorAxes.map((axis) => (
+              <BehaviorAxisBar key={`${axis.leftLabel}-${axis.rightLabel}`} axis={axis} />
+            ))}
+          </div>
+          <div className="mt-5 grid gap-3 border-t border-slate-100 pt-5 md:grid-cols-2">
+            {report.preferences.map((preference) => (
+              <div key={preference.label} className="rounded-2xl bg-slate-50 p-4 text-center">
+                <p className="text-xs font-black text-slate-400">{preference.label}</p>
+                <p className="mt-1 text-lg font-black text-slate-800">{preference.value}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-xs font-bold text-slate-400">
+            매체 유형 선호: {report.mediaPreference}
+          </p>
+        </article>
+      </section>
+    </section>
+  );
+}
+
+function AchievementSubjectCard({
+  subject,
+}: {
+  subject: PreMiddleReport["achievementReport"]["subjects"][number];
+}) {
+  const tone = achievementToneClass[subject.tone];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <h4 className="text-xl font-black text-slate-800">{subject.subject}</h4>
+        <span className={`text-sm font-black ${tone.text}`}>{subject.percentileLabel}</span>
+      </div>
+      <p className="mt-4 text-4xl font-black text-slate-950">
+        {subject.score}
+        <span className="ml-1 text-lg font-bold text-slate-400">점</span>
+      </p>
+      <div className="mt-4 grid gap-2">
+        {subject.details.map((detail) => (
+          <div key={detail.label} className="flex items-center justify-between text-sm font-bold">
+            <span className="text-slate-500">{detail.label}</span>
+            <span className="text-slate-800">{detail.value}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+        <div className={`h-full rounded-full ${tone.bg}`} style={{ width: `${subject.score}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function ProfileNote({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone: "blue" | "emerald";
+}) {
+  const className = tone === "blue"
+    ? "bg-blue-50 text-blue-700"
+    : "bg-emerald-50 text-emerald-700";
+
+  return (
+    <div className={`rounded-2xl p-4 ${className}`}>
+      <p className="text-xs font-black">{label}</p>
+      <p className="mt-2 text-sm font-bold leading-6 text-slate-700">{value}</p>
+    </div>
+  );
+}
+
+function BehaviorAxisBar({
+  axis,
+}: {
+  axis: PreMiddleReport["achievementReport"]["behaviorAxes"][number];
+}) {
+  const total = axis.leftScore + axis.rightScore || 1;
+  const leftPercent = Math.round((axis.leftScore / total) * 100);
+  const rightPercent = 100 - leftPercent;
+  const leftActive = axis.dominantSide === "left";
+
+  return (
+    <div>
+      <div className="mb-1 flex items-center justify-between gap-2 text-xs font-black">
+        <span className={leftActive ? "text-indigo-600" : "text-slate-500"}>
+          {axis.leftLabel} ({axis.leftScore})
+        </span>
+        <span className="text-slate-400">vs</span>
+        <span className={!leftActive ? "text-indigo-600" : "text-slate-500"}>
+          {axis.rightLabel} ({axis.rightScore})
+        </span>
+      </div>
+      <div className="flex h-2 overflow-hidden rounded-full bg-slate-100">
+        <div className={leftActive ? "bg-indigo-500" : "bg-slate-300"} style={{ width: `${leftPercent}%` }} />
+        <div className={!leftActive ? "bg-indigo-500" : "bg-slate-300"} style={{ width: `${rightPercent}%` }} />
+      </div>
+    </div>
+  );
+}
+
+const achievementToneClass = {
+  blue: {
+    text: "text-blue-600",
+    bg: "bg-blue-500",
+  },
+  emerald: {
+    text: "text-emerald-600",
+    bg: "bg-emerald-500",
+  },
+  violet: {
+    text: "text-violet-600",
+    bg: "bg-violet-500",
+  },
+} as const;
 
 function buildSubjectAnalysesFromAssessments(
   report: Middle3Report,
