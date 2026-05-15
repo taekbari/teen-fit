@@ -57,7 +57,10 @@ function formatComparisonLabel(label?: string) {
     return "";
   }
 
-  return label.replace(/^중(\d)/, "$1학년");
+  return label
+    .replace(/^중(\d)\s*(\d)학기$/, "$1학년 $2학기")
+    .replace(/^중(\d)-(\d)$/, "$1학년 $2학기")
+    .replace(/^중(\d)/, "$1학년");
 }
 
 function List({ title, items }: { title: string; items: string[] }) {

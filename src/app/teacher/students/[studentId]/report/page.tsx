@@ -19,8 +19,8 @@ import {
 } from "@/components/report-ui";
 import { getStudentGuidanceReport } from "@/lib/api/studentReport";
 import { getMockStudent } from "@/lib/mock/students";
-import type { StudentRecord } from "@/types/student";
-import type { Middle3Report, PreMiddleReport } from "@/types/studentReport";
+import type { StudentRecord, SubjectAssessmentRecord } from "@/types/student";
+import type { Middle3Report, PreMiddleReport, SubjectAnalysis, TrendDirection } from "@/types/studentReport";
 import Link from "next/link";
 
 type PageProps = {
@@ -118,6 +118,10 @@ function PreMiddleReportView({ report }: { report: PreMiddleReport }) {
 }
 
 function Middle3ReportView({ report, student }: { report: Middle3Report; student?: StudentRecord }) {
+  const subjectAnalyses = student
+    ? buildSubjectAnalysesFromAssessments(report, student.subjectAssessments)
+    : report.subjects;
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-6 md:px-8 md:py-8">
       <div className="mx-auto max-w-7xl">
@@ -134,14 +138,22 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
 
         <SectionHeader eyebrow="Subject Dashboard" title="과목 분석 대시보드" />
         <section className="grid gap-5 lg:grid-cols-3">
-          {report.subjects.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
+          {subjectAnalyses.map((subject) => <SubjectAnalysisCard key={subject.subject} subject={subject} />)}
         </section>
+
+        {student ? (
+          <section className="mt-5">
+            <Card title="진단평가 상세">
+              <AssessmentDetailPanel assessments={student.subjectAssessments} />
+            </Card>
+          </section>
+        ) : null}
 
         {student ? (
           <>
             <SectionHeader
               eyebrow="Assessment Data"
-              title="성향검사·진단평가 근거 데이터"
+              title="성향검사 근거 데이터"
             />
             <section>
               <Card
@@ -149,14 +161,6 @@ function Middle3ReportView({ report, student }: { report: Middle3Report; student
                 description={"분석적이고 꼼꼼했던 초등기를 지나, 중2로 오면서 ‘행동/확산/함께/자율’형으로 급격히 변화했습니다.\n이는 고등학교 진학 후 팀 프로젝트 기반의 IT 탐구 활동에 매우 적합한 성향입니다."}
               >
                 <PersonalityAssessmentPanel items={student.personalityHistory} />
-              </Card>
-            </section>
-
-            <section className="mt-5">
-              <Card
-                title="진단평가 상세"
-              >
-                <AssessmentDetailPanel assessments={student.subjectAssessments} />
               </Card>
             </section>
           </>
@@ -214,6 +218,56 @@ function InfoListCard({
       </ul>
     </article>
   );
+}
+
+function buildSubjectAnalysesFromAssessments(
+  report: Middle3Report,
+  assessments: SubjectAssessmentRecord[],
+): SubjectAnalysis[] {
+  return report.subjects.map((subject) => {
+    const subjectAssessments = assessments.filter((assessment) => assessment.subject === subject.subject);
+
+    if (!subjectAssessments.length) {
+      return subject;
+    }
+
+    const chartValues = subjectAssessments.map((assessment) => assessment.totalScore);
+    const chartLabels = subjectAssessments.map((assessment) => formatAssessmentPeriod(assessment.period));
+    const currentScore = chartValues.at(-1) ?? subject.currentScore;
+    const previousScore = chartValues.at(-2) ?? subject.previousScore;
+    const diff = currentScore - previousScore;
+
+    return {
+      ...subject,
+      currentScore,
+      previousScore,
+      trend: toTrendDirection(diff),
+      chartValues,
+      chartLabels,
+    };
+  });
+}
+
+function formatAssessmentPeriod(period: string) {
+  const match = period.match(/^중(\d)-(\d)$/);
+
+  if (!match) {
+    return period;
+  }
+
+  return `중${match[1]} ${match[2]}학기`;
+}
+
+function toTrendDirection(diff: number): TrendDirection {
+  if (diff > 0) {
+    return "up";
+  }
+
+  if (diff < 0) {
+    return "down";
+  }
+
+  return "stable";
 }
 
 function SectionHeader({
